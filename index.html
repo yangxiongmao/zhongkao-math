@@ -764,17 +764,175 @@
     </div>
   </template>
 
-  <!-- ===== 支付成功弹窗 ===== -->
+  <!-- ===== 支付弹窗（扫码 / 转账）===== -->
+  <template x-if="showPayModal">
+    <div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 px-0 sm:px-4" @click.self="cancelPay()">
+      <div class="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl max-h-[90vh] overflow-y-auto fade-in" style="padding-bottom: env(safe-area-inset-bottom, 16px)">
+        <!-- 顶部标题栏 -->
+        <div class="flex items-center justify-between p-5 border-b border-gray-100">
+          <h2 class="text-lg font-bold text-gray-900">确认支付</h2>
+          <button @click="cancelPay()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+            <iconify-icon icon="lucide:x" class="text-gray-400"></iconify-icon>
+          </button>
+        </div>
+
+        <!-- 订单信息 -->
+        <div class="px-5 py-4 bg-gray-50 border-b border-gray-100">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm text-gray-500">订单编号</span>
+            <span class="text-xs text-gray-400 font-mono" x-text="payOrderId"></span>
+          </div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm text-gray-500">开通套餐</span>
+            <span class="text-sm font-medium text-gray-800" x-text="selectedPlanObj()?.name + ' · ' + selectedPlanObj()?.desc"></span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-500">应付金额</span>
+            <span class="text-xl font-extrabold text-red-500">¥<span x-text="selectedPlanObj()?.price"></span></span>
+          </div>
+        </div>
+
+        <!-- 微信支付 -->
+        <template x-if="selectedPayment === 'wechat'">
+          <div class="p-5 text-center">
+            <div class="inline-flex items-center gap-2 text-green-600 mb-4">
+              <iconify-icon icon="ri:wechat-pay-fill" class="text-2xl"></iconify-icon>
+              <span class="font-semibold">微信支付</span>
+            </div>
+            <!-- 有收款码 -->
+            <template x-if="payConfig.wechat.qrCode">
+              <div>
+                <div class="w-52 h-52 mx-auto mb-3 border-2 border-green-100 rounded-xl overflow-hidden bg-white p-2">
+                  <img :src="payConfig.wechat.qrCode" class="w-full h-full object-contain" alt="微信收款码">
+                </div>
+                <p class="text-sm text-gray-600 mb-1">请使用微信扫描上方二维码</p>
+                <p class="text-xs text-gray-400">付款金额：<span class="text-red-500 font-bold">¥<span x-text="selectedPlanObj()?.price"></span></span></p>
+              </div>
+            </template>
+            <!-- 无收款码：文字引导 -->
+            <template x-if="!payConfig.wechat.qrCode">
+              <div class="bg-green-50 rounded-xl p-5 text-left">
+                <p class="text-sm text-gray-700 mb-3 font-medium">请按以下步骤完成微信支付：</p>
+                <ol class="text-sm text-gray-600 space-y-2">
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">1</span> 打开微信，搜索添加客服微信：<span class="font-mono font-bold text-green-700" x-text="payConfig.serviceWechat"></span></li>
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">2</span> 发送消息：<span class="font-bold text-gray-800">开通<span x-text="selectedPlanObj()?.name"></span></span></li>
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">3</span> 向客服转账 <span class="text-red-500 font-bold">¥<span x-text="selectedPlanObj()?.price"></span></span></li>
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">4</span> 转账成功后点击下方 "我已完成支付"</li>
+                </ol>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- 支付宝支付 -->
+        <template x-if="selectedPayment === 'alipay'">
+          <div class="p-5 text-center">
+            <div class="inline-flex items-center gap-2 text-blue-600 mb-4">
+              <iconify-icon icon="ri:alipay-fill" class="text-2xl"></iconify-icon>
+              <span class="font-semibold">支付宝支付</span>
+            </div>
+            <template x-if="payConfig.alipay.qrCode">
+              <div>
+                <div class="w-52 h-52 mx-auto mb-3 border-2 border-blue-100 rounded-xl overflow-hidden bg-white p-2">
+                  <img :src="payConfig.alipay.qrCode" class="w-full h-full object-contain" alt="支付宝收款码">
+                </div>
+                <p class="text-sm text-gray-600 mb-1">请使用支付宝扫描上方二维码</p>
+                <p class="text-xs text-gray-400">付款金额：<span class="text-red-500 font-bold">¥<span x-text="selectedPlanObj()?.price"></span></span></p>
+              </div>
+            </template>
+            <template x-if="!payConfig.alipay.qrCode">
+              <div class="bg-blue-50 rounded-xl p-5 text-left">
+                <p class="text-sm text-gray-700 mb-3 font-medium">请按以下步骤完成支付宝支付：</p>
+                <ol class="text-sm text-gray-600 space-y-2">
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">1</span> 打开支付宝，点击"转账"</li>
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">2</span> 转账至账户：<span class="font-bold text-blue-700" x-text="payConfig.alipay.account || payConfig.serviceWechat"></span></li>
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">3</span> 转账金额 <span class="text-red-500 font-bold">¥<span x-text="selectedPlanObj()?.price"></span></span>，备注：<span class="font-mono text-gray-700" x-text="payOrderId"></span></li>
+                  <li class="flex gap-2"><span class="flex-shrink-0 w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs">4</span> 转账成功后点击下方 "我已完成支付"</li>
+                </ol>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- 银行卡支付 -->
+        <template x-if="selectedPayment === 'card'">
+          <div class="p-5">
+            <div class="inline-flex items-center gap-2 text-gray-700 mb-4 w-full justify-center">
+              <iconify-icon icon="lucide:credit-card" class="text-2xl"></iconify-icon>
+              <span class="font-semibold">银行卡转账</span>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-5 space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">收款银行</span>
+                <span class="text-sm font-medium text-gray-800" x-text="payConfig.card.bankName || '待配置'"></span>
+              </div>
+              <div class="border-t border-gray-200"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">开户姓名</span>
+                <span class="text-sm font-medium text-gray-800" x-text="payConfig.card.accountName || '待配置'"></span>
+              </div>
+              <div class="border-t border-gray-200"></div>
+              <div class="flex justify-between items-start">
+                <span class="text-sm text-gray-500">银行卡号</span>
+                <div class="text-right">
+                  <span class="text-sm font-mono font-bold text-gray-800 tracking-wider" x-text="payConfig.card.accountNumber || '待配置'"></span>
+                  <button @click="copyText(payConfig.card.accountNumber)" class="ml-2 text-primary-500 text-xs hover:underline" x-show="payConfig.card.accountNumber">复制</button>
+                </div>
+              </div>
+              <div class="border-t border-gray-200"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">开户支行</span>
+                <span class="text-sm text-gray-600" x-text="payConfig.card.branch || '待配置'"></span>
+              </div>
+              <div class="border-t border-gray-200"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">转账金额</span>
+                <span class="text-lg font-extrabold text-red-500">¥<span x-text="selectedPlanObj()?.price"></span></span>
+              </div>
+              <div class="border-t border-gray-200"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-500">转账备注</span>
+                <span class="text-sm font-mono text-gray-700" x-text="payOrderId"></span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-3 text-center">请务必在转账备注中填写订单编号，以便快速确认</p>
+          </div>
+        </template>
+
+        <!-- 底部操作区 -->
+        <div class="px-5 pb-5 space-y-3">
+          <div class="bg-amber-50 rounded-lg p-3 flex items-start gap-2">
+            <iconify-icon icon="lucide:info" class="text-amber-500 text-sm mt-0.5 flex-shrink-0"></iconify-icon>
+            <p class="text-xs text-amber-700">支付完成后请点击"我已完成支付"，我们将在 <span class="font-bold">1小时内</span> 为您开通会员。如有问题请联系客服微信：<span class="font-mono font-bold" x-text="payConfig.serviceWechat"></span></p>
+          </div>
+
+          <button @click="confirmPaid()"
+            class="w-full py-3.5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-green-200 hover:shadow-xl transition flex items-center justify-center gap-2">
+            <iconify-icon icon="lucide:check-circle"></iconify-icon>
+            我已完成支付
+          </button>
+
+          <button @click="cancelPay()"
+            class="w-full py-2.5 text-gray-400 text-xs hover:text-gray-600 transition text-center">
+            取消支付
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 支付确认成功弹窗 ===== -->
   <template x-if="showPaySuccess">
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" @click.self="showPaySuccess = false">
       <div class="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center fade-in">
         <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
           <iconify-icon icon="lucide:check-circle" class="text-green-500 text-3xl"></iconify-icon>
         </div>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">支付成功!</h2>
-        <p class="text-sm text-gray-500 mb-6">已成功开通 <span class="text-primary-600 font-medium" x-text="selectedPlanObj()?.name"></span>，现在可以畅享全部试卷</p>
+        <h2 class="text-xl font-bold text-gray-900 mb-2">支付信息已提交!</h2>
+        <p class="text-sm text-gray-500 mb-2">您的 <span class="text-primary-600 font-medium" x-text="selectedPlanObj()?.name"></span> 开通申请已记录</p>
+        <p class="text-xs text-gray-400 mb-6">我们将在确认收款后1小时内为您开通会员<br>如有疑问请联系客服微信：<span class="font-mono font-bold" x-text="payConfig.serviceWechat"></span></p>
         <button @click="showPaySuccess = false; page = 'papers'" class="w-full py-2.5 bg-primary-600 text-white rounded-xl text-sm font-medium hover:bg-primary-700 transition">
-          开始刷题
+          返回刷题
         </button>
       </div>
     </div>
@@ -917,6 +1075,10 @@
         selectedPlan: 'quarter',
         selectedPayment: 'wechat',
         paying: false,
+        showPayModal: false,
+        payOrderId: '',
+        payCountdown: 0,
+        payTimer: null,
         showPaySuccess: false,
         showDownloadToast: false,
         downloadingPDF: false,
@@ -974,6 +1136,26 @@
           { id: 'alipay', name: '支付宝', icon: 'ri:alipay-fill', color: 'text-blue-500' },
           { id: 'card', name: '银行卡', icon: 'lucide:credit-card', color: 'text-gray-600' },
         ],
+        // ====== 收款配置（请替换为自己的收款码和账户信息）======
+        payConfig: {
+          wechat: {
+            qrCode: '', // 微信收款码图片URL，留空则显示文字引导
+            name: '北大熊猫老师',
+          },
+          alipay: {
+            qrCode: '', // 支付宝收款码图片URL，留空则显示文字引导
+            account: '', // 支付宝账号（可选展示）
+            name: '北大熊猫老师',
+          },
+          card: {
+            bankName: '中国工商银行',
+            accountName: '', // 开户人姓名
+            accountNumber: '', // 银行卡号
+            branch: '', // 开户支行
+          },
+          // 客服微信号，用于支付后联系确认
+          serviceWechat: 'panda_math_teacher',
+        },
         comparisonRows: [
           { label: '免费试卷', values: ['5套/月', '无限', '无限', '无限'] },
           { label: '会员试卷', values: [false, true, true, true] },
@@ -1538,15 +1720,93 @@
         },
 
         async handlePay() {
-          this.paying = true;
-          await new Promise(r => setTimeout(r, 1500));
+          // 生成订单号：时间戳 + 随机4位
+          const ts = new Date();
+          const orderId = 'ZK' + ts.getFullYear().toString().slice(2) +
+            String(ts.getMonth() + 1).padStart(2, '0') +
+            String(ts.getDate()).padStart(2, '0') +
+            String(ts.getHours()).padStart(2, '0') +
+            String(ts.getMinutes()).padStart(2, '0') +
+            String(Math.floor(Math.random() * 9000) + 1000);
+          this.payOrderId = orderId;
+
+          // 记录待支付订单
+          const order = {
+            orderId,
+            plan: this.selectedPlan,
+            planName: this.selectedPlanObj()?.name,
+            price: this.selectedPlanObj()?.price,
+            payMethod: this.selectedPayment,
+            status: 'pending',
+            createdAt: ts.toISOString(),
+            userName: this.displayName,
+          };
+          await safeLS.setItem('pending_order', JSON.stringify(order));
+
+          // 打开支付弹窗
+          this.showPayModal = true;
+        },
+
+        async confirmPaid() {
+          // 用户确认已支付，记录订单并更新状态
+          const orderStr = await safeLS.getItem('pending_order');
+          if (orderStr) {
+            try {
+              const order = JSON.parse(orderStr);
+              order.status = 'paid_unconfirmed';
+              order.paidAt = new Date().toISOString();
+
+              // 保存订单记录到历史
+              const historyStr = await safeLS.getItem('order_history') || '[]';
+              const history = JSON.parse(historyStr);
+              history.unshift(order);
+              await safeLS.setItem('order_history', JSON.stringify(history));
+
+              // 同步到集合（如果可用）
+              if (!this.isGuest && this.userCol) {
+                try {
+                  await this.userCol.insertOne({ key: 'order_' + order.orderId, ...order });
+                } catch (e) { console.warn('[Pay] 订单同步失败:', e.message); }
+              }
+            } catch (e) { console.warn('[Pay] 订单解析失败:', e); }
+          }
+
+          // 先临时开通会员（信任用户已支付），待人工确认
           this.userPlan = this.selectedPlan;
           await safeLS.setItem('user_plan', this.selectedPlan);
           if (!this.isGuest && this.userCol) {
-            await this.userCol.replaceOne({ key: 'plan' }, { key: 'plan', plan: this.selectedPlan }, { upsert: true });
+            try {
+              await this.userCol.replaceOne({ key: 'plan' }, { key: 'plan', plan: this.selectedPlan }, { upsert: true });
+            } catch (e) { console.warn('[Pay] 计划同步失败:', e.message); }
           }
-          this.paying = false;
+          await safeLS.setItem('pending_order', '');
+
+          this.showPayModal = false;
           this.showPaySuccess = true;
+        },
+
+        cancelPay() {
+          this.showPayModal = false;
+          this.payOrderId = '';
+          if (this.payTimer) { clearInterval(this.payTimer); this.payTimer = null; }
+        },
+
+        async copyText(text) {
+          if (!text) return;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            }
+            alert('已复制到剪贴板');
+          } catch { alert('复制失败，请手动复制'); }
         },
 
         handleShare() {
