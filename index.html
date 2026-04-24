@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>中考数学押题 · 每日打卡</title>
+  <!-- Open Graph / 微信分享预览 -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="中考数学押题 · 精准押题 每日打卡">
+  <meta property="og:description" content="覆盖北京16区，一模/二模/真题/汇编全题型。50万+学生在用，95%押题命中率，助力2026中考冲刺满分！">
+  <meta property="og:image" content="https://img.icons8.com/3d-fluency/512/math.png">
+  <meta name="description" content="2026北京中考数学押题平台，覆盖16区一模、二模、真题、汇编，每日打卡助力冲刺满分">
+  <meta name="keywords" content="中考数学,北京中考,押题,一模,二模,真题,数学试卷,打卡">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a' },
+            accent: { 50:'#fdf4ff',100:'#fae8ff',200:'#f5d0fe',300:'#f0abfc',400:'#e879f9',500:'#d946ef',600:'#c026d3',700:'#a21caf' },
+            gold: { 50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706' },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [x-cloak] { display: none !important; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; padding-bottom: env(safe-area-inset-bottom, 0); }
+    /* 微信浏览器兼容 */
+    input, button, textarea { -webkit-appearance: none; border-radius: 0; }
+    button { -webkit-tap-highlight-color: transparent; }
+    img { -webkit-touch-callout: none; }
+    .glass { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .card-hover { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); }
+    .gradient-text { background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-bg { background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #fdf4ff 100%); }
+    .badge-hot { animation: pulse-hot 2s infinite; }
+    @keyframes pulse-hot { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .tab-active { position: relative; }
+    .tab-active::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 60%; height: 3px; background: linear-gradient(90deg, #2563eb, #7c3aed); border-radius: 2px; }
+    .checkin-ring { background: conic-gradient(#3b82f6 var(--progress), #e5e7eb var(--progress)); }
+    .confetti { position: fixed; pointer-events: none; z-index: 100; }
+    .confetti span { position: absolute; display: block; width: 8px; height: 8px; border-radius: 2px; animation: confettiFall 1.5s ease-out forwards; }
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+      100% { opacity: 0; transform: translateY(400px) rotate(720deg) scale(0.3); }
+    }
+    .streak-fire { animation: fireGlow 1.5s ease-in-out infinite alternate; }
+    @keyframes fireGlow { from { filter: drop-shadow(0 0 4px rgba(249,115,22,0.5)); } to { filter: drop-shadow(0 0 8px rgba(249,115,22,0.8)); } }
+    .share-btn { position: relative; overflow: hidden; }
+    .share-btn::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      animation: shimmer 3s infinite; }
+    @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen" x-data="app" x-cloak>
+
+  <!-- 导航栏 -->
+  <nav class="sticky top-0 z-50 glass border-b border-gray-200/60">
+    <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer" @click="goHome()">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-600 flex items-center justify-center">
+          <iconify-icon icon="lucide:square-radical" class="text-white text-base"></iconify-icon>
+        </div>
+        <span class="font-bold text-lg gradient-text">中考数学押题</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button @click="page = 'checkin'" class="relative text-sm text-gray-600 hover:text-primary-600 transition flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-primary-50"
+          :class="page === 'checkin' && 'text-primary-600 bg-primary-50 font-medium'">
+          <iconify-icon icon="lucide:calendar-check" class="text-base"></iconify-icon>
+          <span class="hidden sm:inline">打卡</span>
+          <template x-if="streak > 0">
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 text-white text-[9px] rounded-full flex items-center justify-center font-bold" x-text="streak"></span>
+          </template>
+        </button>
+        <button @click="page = 'pricing'" class="text-sm text-gray-600 hover:text-primary-600 transition flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-primary-50"
+          :class="page === 'pricing' && 'text-primary-600 bg-primary-50 font-medium'">
+          <iconify-icon icon="lucide:crown" class="text-gold-500"></iconify-icon>
+          <span class="hidden sm:inline">会员</span>
+        </button>
+        <button @click="handleShare()" class="text-sm text-gray-600 hover:text-primary-600 transition flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-primary-50">
+          <iconify-icon icon="lucide:share-2" class="text-base"></iconify-icon>
+          <span class="hidden sm:inline">分享</span>
+        </button>
+        <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium cursor-pointer"
+          @click="showNicknameModal = !isGuest ? false : true"
+          x-text="displayInitial"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== 首页 ===== -->
+  <template x-if="page === 'home'">
+    <div class="fade-in">
+      <!-- Hero -->
+      <section class="hero-bg py-10 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+          <div class="inline-flex items-center gap-1.5 bg-white/80 border border-primary-200 rounded-full px-3 py-1 text-xs text-primary-700 mb-4">
+            <iconify-icon icon="lucide:flame" class="text-orange-500 badge-hot"></iconify-icon>
+            2026 北京中考冲刺专题
+          </div>
+          <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 leading-tight">
+            精准押题 · 每日打卡
+          </h1>
+          <p class="text-gray-500 text-sm md:text-base max-w-xl mx-auto mb-6">
+            覆盖北京 16 区 · 一模 / 二模 / 真题 / 汇编全题型<br>每天坚持打卡，中考数学稳拿高分
+          </p>
+          <!-- 打卡进度条 (首页摘要) -->
+          <div class="max-w-md mx-auto bg-white/90 rounded-2xl p-4 border border-gray-100 shadow-sm mb-6">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <template x-if="streak > 0">
+                  <iconify-icon icon="lucide:flame" class="text-orange-500 text-lg streak-fire"></iconify-icon>
+                </template>
+                <span class="text-sm font-bold text-gray-800">
+                  已连续打卡 <span class="gradient-text" x-text="streak"></span> 天
+                </span>
+              </div>
+              <button @click="page = 'checkin'" class="text-xs text-primary-500 hover:text-primary-700">查看详情 &rarr;</button>
+            </div>
+            <div class="w-full bg-gray-100 rounded-full h-2 mb-2">
+              <div class="h-2 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 transition-all duration-500"
+                :style="'width:' + Math.min(streak / 30 * 100, 100) + '%'"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-gray-400">
+              <span>0天</span>
+              <span>目标 30 天</span>
+            </div>
+          </div>
+          <div class="flex justify-center gap-3">
+            <button @click="page = 'checkin'" class="share-btn px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl text-sm font-medium shadow-lg shadow-primary-200 hover:shadow-xl transition">
+              <iconify-icon icon="lucide:calendar-check" class="mr-1"></iconify-icon>
+              今日打卡
+            </button>
+            <button @click="page = 'papers'" class="px-6 py-2.5 bg-white text-gray-700 rounded-xl text-sm font-medium border border-gray-200 hover:border-primary-300 hover:text-primary-600 transition">
+              浏览试卷
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 数据统计 -->
+      <section class="max-w-6xl mx-auto px-4 -mt-5">
+        <div class="grid grid-cols-4 gap-3">
+          <template x-for="s in stats" :key="s.label">
+            <div class="bg-white rounded-xl p-3 md:p-4 text-center shadow-sm border border-gray-100">
+              <div class="text-xl md:text-2xl font-bold gradient-text" x-text="s.value"></div>
+              <div class="text-[10px] md:text-xs text-gray-400 mt-1" x-text="s.label"></div>
+            </div>
+          </template>
+        </div>
+      </section>
+
+      <!-- 快捷入口 - 区域 -->
+      <section class="max-w-6xl mx-auto px-4 mt-8">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-800">热门区域</h2>
+          <button @click="page = 'papers'" class="text-xs text-primary-500 hover:text-primary-700 flex items-center gap-0.5">
+            查看全部 <iconify-icon icon="lucide:chevron-right"></iconify-icon>
+          </button>
+        </div>
+        <div class="grid grid-cols-4 md:grid-cols-8 gap-2">
+          <template x-for="d in hotDistricts" :key="d">
+            <button @click="selectedDistrict = d; page = 'papers'"
+              class="bg-white rounded-xl py-3 text-center text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 border border-gray-100 hover:border-primary-200 transition card-hover">
+              <span x-text="d"></span>
+            </button>
+          </template>
+        </div>
+      </section>
+
+      <!-- 推荐试卷 -->
+      <section class="max-w-6xl mx-auto px-4 mt-8 pb-24 sm:pb-12">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-800">精选推荐</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <template x-for="p in featuredPapers" :key="p.id">
+            <div @click="viewPaper(p)" class="bg-white rounded-xl p-4 border border-gray-100 cursor-pointer card-hover">
+              <div class="flex items-start justify-between mb-3">
+                <span class="text-xs px-2 py-0.5 rounded-full font-medium"
+                  :class="categoryColor(p.category)" x-text="p.category"></span>
+                <span class="text-xs text-gray-400" x-text="p.year + '年'"></span>
+              </div>
+              <h3 class="font-semibold text-gray-800 text-sm mb-1" x-text="p.title"></h3>
+              <p class="text-xs text-gray-400 mb-3" x-text="p.district + ' · ' + p.questionCount + '题 · ' + p.difficulty"></p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 text-xs text-gray-400">
+                  <iconify-icon icon="lucide:download"></iconify-icon>
+                  <span x-text="p.downloads + ' 人已下载'"></span>
+                </div>
+                <template x-if="p.free">
+                  <span class="text-xs text-green-600 font-medium">免费</span>
+                </template>
+                <template x-if="!p.free">
+                  <span class="text-xs text-gold-600 font-medium flex items-center gap-0.5">
+                    <iconify-icon icon="lucide:crown" class="text-[10px]"></iconify-icon> 会员
+                  </span>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </section>
+    </div>
+  </template>
+
+  <!-- ===== 打卡页 ===== -->
+  <template x-if="page === 'checkin'">
+    <div class="fade-in max-w-2xl mx-auto px-4 py-6">
+      <!-- 打卡头部 -->
+      <div class="bg-gradient-to-br from-primary-600 via-primary-700 to-accent-700 rounded-2xl p-6 text-white mb-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        <div class="relative z-10">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-xl font-bold mb-1">每日打卡</h2>
+              <p class="text-primary-200 text-xs" x-text="todayStr"></p>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <iconify-icon icon="lucide:flame" class="text-orange-300 text-2xl streak-fire"></iconify-icon>
+              <div class="text-right">
+                <div class="text-2xl font-extrabold" x-text="streak"></div>
+                <div class="text-[10px] text-primary-200">连续天数</div>
+              </div>
+            </div>
+          </div>
+          <!-- 本周打卡点 -->
+          <div class="grid grid-cols-7 gap-2">
+            <template x-for="d in weekDays" :key="d.label">
+              <div class="text-center">
+                <div class="text-[10px] text-primary-200 mb-1" x-text="d.label"></div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center mx-auto text-xs font-medium"
+                  :class="d.checked ? 'bg-white text-primary-700' : (d.isToday ? 'bg-white/20 text-white border-2 border-white/40' : 'bg-white/10 text-primary-300')">
+                  <template x-if="d.checked">
+                    <iconify-icon icon="lucide:check" class="text-sm"></iconify-icon>
+                  </template>
+                  <template x-if="!d.checked">
+                    <span x-text="d.date"></span>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- 打卡按钮 -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-6 mb-6 text-center">
+        <template x-if="!todayChecked">
+          <div>
+            <p class="text-sm text-gray-500 mb-4">今天还没有打卡哦，完成一套试卷即可打卡！</p>
+            <button @click="doCheckin()"
+              class="share-btn w-32 h-32 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-white mx-auto flex flex-col items-center justify-center shadow-xl shadow-primary-200 hover:shadow-2xl transition-all hover:scale-105 active:scale-95">
+              <iconify-icon icon="lucide:calendar-check" class="text-3xl mb-1"></iconify-icon>
+              <span class="text-sm font-bold">打卡</span>
+            </button>
+            <p class="text-xs text-gray-400 mt-3">点击打卡记录今日学习</p>
+          </div>
+        </template>
+        <template x-if="todayChecked">
+          <div>
+            <div class="w-24 h-24 rounded-full bg-green-50 mx-auto flex items-center justify-center mb-3">
+              <iconify-icon icon="lucide:check-circle" class="text-green-500 text-5xl"></iconify-icon>
+            </div>
+            <p class="text-lg font-bold text-gray-800 mb-1">今日已打卡!</p>
+            <p class="text-sm text-gray-400 mb-4">坚持就是胜利，明天继续加油!</p>
+            <button @click="page = 'papers'" class="px-6 py-2 bg-primary-50 text-primary-600 rounded-xl text-sm font-medium hover:bg-primary-100 transition">
+              继续刷题 <iconify-icon icon="lucide:arrow-right" class="ml-1"></iconify-icon>
+            </button>
+          </div>
+        </template>
+      </div>
+
+      <!-- 打卡统计 -->
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100">
+          <div class="text-2xl font-bold text-primary-600" x-text="totalCheckins"></div>
+          <div class="text-xs text-gray-400 mt-1">累计打卡</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100">
+          <div class="text-2xl font-bold text-orange-500" x-text="streak"></div>
+          <div class="text-xs text-gray-400 mt-1">连续打卡</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100">
+          <div class="text-2xl font-bold text-accent-500" x-text="maxStreak"></div>
+          <div class="text-xs text-gray-400 mt-1">最长连续</div>
+        </div>
+      </div>
+
+      <!-- 打卡日历 -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-5 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <button @click="prevMonth()" class="p-1 hover:bg-gray-100 rounded-lg">
+            <iconify-icon icon="lucide:chevron-left" class="text-gray-400"></iconify-icon>
+          </button>
+          <h3 class="text-sm font-bold text-gray-800" x-text="calendarTitle"></h3>
+          <button @click="nextMonth()" class="p-1 hover:bg-gray-100 rounded-lg">
+            <iconify-icon icon="lucide:chevron-right" class="text-gray-400"></iconify-icon>
+          </button>
+        </div>
+        <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2">
+          <template x-for="w in ['一','二','三','四','五','六','日']">
+            <div class="text-gray-400 py-1" x-text="w"></div>
+          </template>
+        </div>
+        <div class="grid grid-cols-7 gap-1 text-center">
+          <template x-for="d in calendarDays" :key="d.key">
+            <div class="py-1.5">
+              <template x-if="d.day">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center mx-auto text-xs"
+                  :class="{
+                    'bg-primary-500 text-white font-bold': d.checked && d.isToday,
+                    'bg-primary-100 text-primary-700 font-medium': d.checked && !d.isToday,
+                    'ring-2 ring-primary-300 text-gray-700': !d.checked && d.isToday,
+                    'text-gray-400': !d.checked && !d.isToday && d.day
+                  }" x-text="d.day"></div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- 打卡排行榜 -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-5">
+        <h3 class="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <iconify-icon icon="lucide:trophy" class="text-gold-500"></iconify-icon>
+          打卡排行榜
+        </h3>
+        <div class="space-y-2">
+          <template x-for="(r, i) in leaderboard" :key="r.name">
+            <div class="flex items-center gap-3 p-2 rounded-lg" :class="i < 3 && 'bg-gold-50/50'">
+              <div class="w-6 text-center flex-shrink-0">
+                <template x-if="i === 0"><iconify-icon icon="lucide:medal" class="text-gold-500"></iconify-icon></template>
+                <template x-if="i === 1"><iconify-icon icon="lucide:medal" class="text-gray-400"></iconify-icon></template>
+                <template x-if="i === 2"><iconify-icon icon="lucide:medal" class="text-orange-400"></iconify-icon></template>
+                <template x-if="i >= 3"><span class="text-xs text-gray-400" x-text="i + 1"></span></template>
+              </div>
+              <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0"
+                :class="r.isMe ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-500'"
+                x-text="r.name.charAt(0)"></div>
+              <div class="flex-1 min-w-0">
+                <span class="text-sm text-gray-800 font-medium truncate block" x-text="r.name"></span>
+              </div>
+              <div class="flex items-center gap-1 text-xs text-orange-500 font-medium flex-shrink-0">
+                <iconify-icon icon="lucide:flame" class="text-sm"></iconify-icon>
+                <span x-text="r.streak + '天'"></span>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 试卷列表页 ===== -->
+  <template x-if="page === 'papers'">
+    <div class="fade-in max-w-6xl mx-auto px-4 py-6">
+      <!-- 区域选择 -->
+      <div class="mb-5">
+        <h3 class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">选择区域</h3>
+        <div class="flex flex-wrap gap-2">
+          <button @click="selectedDistrict = '全部'"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium border transition"
+            :class="selectedDistrict === '全部' ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 border-gray-200 hover:border-primary-300'">
+            全部区域
+          </button>
+          <template x-for="d in allDistricts" :key="d">
+            <button @click="selectedDistrict = d"
+              class="px-3 py-1.5 rounded-lg text-xs font-medium border transition"
+              :class="selectedDistrict === d ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 border-gray-200 hover:border-primary-300'">
+              <span x-text="d"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- 分类 Tabs -->
+      <div class="mb-5 border-b border-gray-200">
+        <div class="flex gap-6 overflow-x-auto">
+          <template x-for="c in categories" :key="c">
+            <button @click="selectedCategory = c"
+              class="pb-2.5 text-sm font-medium transition whitespace-nowrap"
+              :class="selectedCategory === c ? 'text-primary-600 tab-active' : 'text-gray-400 hover:text-gray-600'">
+              <span x-text="c"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- 年份筛选 -->
+      <div class="flex items-center gap-2 mb-5">
+        <span class="text-xs text-gray-400">年份：</span>
+        <template x-for="y in years" :key="y">
+          <button @click="selectedYear = y"
+            class="px-2.5 py-1 rounded-md text-xs transition"
+            :class="selectedYear === y ? 'bg-primary-100 text-primary-700 font-medium' : 'text-gray-500 hover:bg-gray-100'">
+            <span x-text="y"></span>
+          </button>
+        </template>
+      </div>
+
+      <!-- 试卷列表 -->
+      <div class="space-y-3">
+        <template x-for="p in filteredPapers" :key="p.id">
+          <div @click="viewPaper(p)" class="bg-white rounded-xl p-4 border border-gray-100 cursor-pointer card-hover flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+              :class="categoryBg(p.category)">
+              <iconify-icon :icon="categoryIcon(p.category)" class="text-xl"
+                :class="categoryIconColor(p.category)"></iconify-icon>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-semibold text-gray-800 text-sm truncate" x-text="p.title"></h3>
+                <template x-if="p.isNew">
+                  <span class="text-[10px] px-1.5 py-0.5 bg-red-50 text-red-500 rounded font-medium flex-shrink-0">NEW</span>
+                </template>
+              </div>
+              <p class="text-xs text-gray-400" x-text="p.district + ' · ' + p.year + '年 · ' + p.questionCount + '题 · ' + p.difficulty"></p>
+            </div>
+            <div class="flex flex-col items-end gap-1 flex-shrink-0">
+              <template x-if="p.free">
+                <span class="text-xs bg-green-50 text-green-600 px-2 py-0.5 rounded-full font-medium">免费</span>
+              </template>
+              <template x-if="!p.free">
+                <span class="text-xs bg-gold-50 text-gold-600 px-2 py-0.5 rounded-full font-medium">会员</span>
+              </template>
+              <span class="text-[10px] text-gray-300" x-text="p.downloads + ' 下载'"></span>
+            </div>
+          </div>
+        </template>
+        <template x-if="filteredPapers.length === 0">
+          <div class="text-center py-16 text-gray-400">
+            <iconify-icon icon="lucide:file-search" class="text-4xl mb-2"></iconify-icon>
+            <p class="text-sm">暂无匹配试卷</p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 试卷详情页 ===== -->
+  <template x-if="page === 'detail'">
+    <div class="fade-in max-w-4xl mx-auto px-4 py-6">
+      <button @click="page = 'papers'" class="text-xs text-gray-400 hover:text-gray-600 mb-4 flex items-center gap-1">
+        <iconify-icon icon="lucide:arrow-left"></iconify-icon> 返回列表
+      </button>
+      <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <div class="p-6 border-b border-gray-100">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs px-2 py-0.5 rounded-full font-medium"
+              :class="categoryColor(currentPaper.category)" x-text="currentPaper.category"></span>
+            <span class="text-xs text-gray-400" x-text="currentPaper.district + ' · ' + currentPaper.year + '年'"></span>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900 mb-2" x-text="currentPaper.title"></h1>
+          <p class="text-sm text-gray-500" x-text="currentPaper.description"></p>
+        </div>
+        <div class="grid grid-cols-3 divide-x divide-gray-100 border-b border-gray-100">
+          <div class="p-4 text-center">
+            <div class="text-lg font-bold text-gray-800" x-text="currentPaper.questionCount + '题'"></div>
+            <div class="text-xs text-gray-400">题目数量</div>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg font-bold text-gray-800" x-text="currentPaper.difficulty"></div>
+            <div class="text-xs text-gray-400">难度</div>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-lg font-bold text-gray-800" x-text="currentPaper.downloads"></div>
+            <div class="text-xs text-gray-400">下载量</div>
+          </div>
+        </div>
+        <div class="p-6 border-b border-gray-100">
+          <h3 class="text-sm font-semibold text-gray-700 mb-3">覆盖知识点</h3>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="t in currentPaper.topics" :key="t">
+              <span class="px-2.5 py-1 bg-gray-50 text-gray-600 rounded-lg text-xs" x-text="t"></span>
+            </template>
+          </div>
+        </div>
+        <div class="p-6">
+          <template x-if="currentPaper.free || userPlan !== 'free'">
+            <div class="space-y-3">
+              <button @click="downloadPaper()" class="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl text-sm font-medium shadow-lg shadow-primary-200 hover:shadow-xl transition flex items-center justify-center gap-2">
+                <iconify-icon icon="lucide:download"></iconify-icon>
+                下载试卷
+              </button>
+              <button @click="doCheckin()" x-show="!todayChecked"
+                class="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl text-sm font-medium shadow-lg shadow-green-200 hover:shadow-xl transition flex items-center justify-center gap-2">
+                <iconify-icon icon="lucide:calendar-check"></iconify-icon>
+                完成打卡
+              </button>
+            </div>
+          </template>
+          <template x-if="!currentPaper.free && userPlan === 'free'">
+            <div>
+              <div class="bg-gold-50 border border-gold-200 rounded-xl p-4 mb-4 text-center">
+                <iconify-icon icon="lucide:lock" class="text-gold-500 text-2xl mb-1"></iconify-icon>
+                <p class="text-sm text-gold-700 font-medium">该试卷需要会员权限</p>
+                <p class="text-xs text-gold-500 mt-1">升级会员即可解锁全部试卷</p>
+              </div>
+              <button @click="page = 'pricing'" class="w-full py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-white rounded-xl text-sm font-medium shadow-lg shadow-gold-200 hover:shadow-xl transition flex items-center justify-center gap-2">
+                <iconify-icon icon="lucide:crown"></iconify-icon>
+                升级会员
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 支付/会员页 ===== -->
+  <template x-if="page === 'pricing'">
+    <div class="fade-in max-w-4xl mx-auto px-4 py-8">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl mb-4 shadow-lg shadow-gold-200">
+          <iconify-icon icon="lucide:crown" class="text-white text-2xl"></iconify-icon>
+        </div>
+        <h1 class="text-2xl font-extrabold text-gray-900 mb-2">会员中心</h1>
+        <p class="text-sm text-gray-500">解锁全部试卷，助力中考冲刺</p>
+      </div>
+
+      <!-- 当前状态 -->
+      <div class="bg-white rounded-xl p-4 border border-gray-100 mb-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold"
+            x-text="displayInitial"></div>
+          <div>
+            <div class="text-sm font-medium text-gray-800" x-text="displayName"></div>
+            <div class="text-xs text-gray-400">当前套餐：<span class="font-medium" :class="userPlan === 'free' ? 'text-gray-600' : 'text-gold-600'" x-text="planName()"></span></div>
+          </div>
+        </div>
+        <template x-if="userPlan !== 'free'">
+          <span class="text-xs bg-gold-50 text-gold-600 px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
+            <iconify-icon icon="lucide:check-circle" class="text-sm"></iconify-icon>
+            已开通
+          </span>
+        </template>
+      </div>
+
+      <!-- 套餐选择 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <template x-for="plan in plans" :key="plan.id">
+          <div @click="selectedPlan = plan.id"
+            class="relative bg-white rounded-2xl p-5 border-2 cursor-pointer transition-all"
+            :class="selectedPlan === plan.id
+              ? 'border-primary-500 shadow-lg shadow-primary-100'
+              : 'border-gray-100 hover:border-gray-200'">
+            <template x-if="plan.popular">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-[10px] px-3 py-0.5 rounded-full font-medium">
+                最受欢迎
+              </div>
+            </template>
+            <div class="text-center mb-4">
+              <h3 class="font-bold text-gray-800 mb-1" x-text="plan.name"></h3>
+              <p class="text-xs text-gray-400" x-text="plan.desc"></p>
+            </div>
+            <div class="text-center mb-4">
+              <span class="text-xs text-gray-400 line-through" x-show="plan.originalPrice" x-text="'¥' + plan.originalPrice"></span>
+              <div class="flex items-baseline justify-center gap-0.5">
+                <span class="text-xs text-gray-500">¥</span>
+                <span class="text-3xl font-extrabold gradient-text" x-text="plan.price"></span>
+              </div>
+              <span class="text-xs text-gray-400" x-text="plan.period"></span>
+            </div>
+            <ul class="space-y-2 mb-4">
+              <template x-for="f in plan.features" :key="f">
+                <li class="flex items-center gap-2 text-xs text-gray-600">
+                  <iconify-icon icon="lucide:check" class="text-green-500 text-sm flex-shrink-0"></iconify-icon>
+                  <span x-text="f"></span>
+                </li>
+              </template>
+            </ul>
+            <div class="w-5 h-5 rounded-full border-2 mx-auto flex items-center justify-center"
+              :class="selectedPlan === plan.id ? 'border-primary-500 bg-primary-500' : 'border-gray-300'">
+              <iconify-icon x-show="selectedPlan === plan.id" icon="lucide:check" class="text-white text-xs"></iconify-icon>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- 支付方式 -->
+      <div class="bg-white rounded-xl p-5 border border-gray-100 mb-6">
+        <h3 class="text-sm font-semibold text-gray-700 mb-3">选择支付方式</h3>
+        <div class="grid grid-cols-3 gap-3">
+          <template x-for="m in paymentMethods" :key="m.id">
+            <button @click="selectedPayment = m.id"
+              class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition"
+              :class="selectedPayment === m.id ? 'border-primary-500 bg-primary-50' : 'border-gray-100 hover:border-gray-200'">
+              <iconify-icon :icon="m.icon" class="text-2xl" :class="m.color"></iconify-icon>
+              <span class="text-xs font-medium text-gray-700" x-text="m.name"></span>
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- 支付按钮 -->
+      <button @click="handlePay()"
+        class="w-full py-3.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-primary-200 hover:shadow-xl transition flex items-center justify-center gap-2"
+        :class="paying && 'opacity-70 pointer-events-none'">
+        <template x-if="!paying">
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="lucide:shield-check"></iconify-icon>
+            立即支付 ¥<span x-text="selectedPlanObj()?.price"></span>
+          </span>
+        </template>
+        <template x-if="paying">
+          <span class="flex items-center gap-2">
+            <iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon>
+            处理中...
+          </span>
+        </template>
+      </button>
+      <p class="text-center text-[10px] text-gray-300 mt-3">支付即同意《用户服务协议》，如有问题请联系客服</p>
+
+      <!-- 权益对比 -->
+      <div class="mt-10">
+        <h3 class="text-sm font-semibold text-gray-700 mb-4 text-center">权益对比</h3>
+        <div class="bg-white rounded-xl border border-gray-100 overflow-hidden text-xs">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-gray-50">
+                <th class="py-3 px-4 text-left text-gray-500 font-medium">权益</th>
+                <th class="py-3 px-4 text-center text-gray-500 font-medium">免费版</th>
+                <th class="py-3 px-4 text-center text-gray-500 font-medium">月卡</th>
+                <th class="py-3 px-4 text-center text-primary-600 font-bold">季卡</th>
+                <th class="py-3 px-4 text-center text-gray-500 font-medium">年卡</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              <template x-for="r in comparisonRows" :key="r.label">
+                <tr>
+                  <td class="py-2.5 px-4 text-gray-600" x-text="r.label"></td>
+                  <template x-for="(v,vi) in r.values" :key="r.label + '-' + vi">
+                    <td class="py-2.5 px-4 text-center">
+                      <template x-if="v === true">
+                        <iconify-icon icon="lucide:check" class="text-green-500"></iconify-icon>
+                      </template>
+                      <template x-if="v === false">
+                        <iconify-icon icon="lucide:x" class="text-gray-300"></iconify-icon>
+                      </template>
+                      <template x-if="typeof v === 'string'">
+                        <span class="text-gray-600" x-text="v"></span>
+                      </template>
+                    </td>
+                  </template>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 分享弹窗 ===== -->
+  <template x-if="showShareModal">
+    <div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 px-0 sm:px-4" @click.self="showShareModal = false">
+      <div class="bg-white rounded-t-2xl sm:rounded-2xl p-6 w-full sm:max-w-sm text-center fade-in" style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px))">
+        <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4 sm:hidden"></div>
+        <div class="w-14 h-14 bg-primary-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <iconify-icon icon="lucide:share-2" class="text-primary-500 text-2xl"></iconify-icon>
+        </div>
+        <h2 class="text-lg font-bold text-gray-900 mb-2">分享给好友</h2>
+        <p class="text-sm text-gray-500 mb-5">把链接发到微信群或好友，一起打卡备战中考！</p>
+
+        <!-- 微信环境提示 -->
+        <div x-show="isWechat" class="bg-green-50 border border-green-200 rounded-xl p-3 mb-4 text-left">
+          <div class="flex items-center gap-2 mb-1.5">
+            <iconify-icon icon="ri:wechat-fill" class="text-green-500 text-lg"></iconify-icon>
+            <span class="text-sm font-medium text-green-700">微信分享</span>
+          </div>
+          <p class="text-xs text-green-600">点击右上角 <span class="font-bold">···</span> 按钮，选择「转发给朋友」或「分享到朋友圈」即可分享</p>
+        </div>
+
+        <!-- 复制链接 -->
+        <div class="bg-gray-50 rounded-xl p-3 mb-4">
+          <div class="flex items-center gap-2">
+            <input type="text" readonly :value="shareUrl" class="flex-1 bg-transparent text-xs text-gray-600 outline-none truncate" id="shareInput">
+            <button @click="copyShareLink()" class="px-4 py-2 bg-primary-600 text-white rounded-lg text-xs font-medium hover:bg-primary-700 transition flex-shrink-0 active:bg-primary-800">
+              <span x-text="copied ? '已复制 ✓' : '复制链接'"></span>
+            </button>
+          </div>
+          <p x-show="copied" class="text-[10px] text-green-500 mt-2 fade-in">链接已复制，粘贴到微信发送给好友即可</p>
+        </div>
+
+        <!-- 分享方式 -->
+        <div class="grid grid-cols-4 gap-2 mb-4">
+          <button @click="copyShareLink()" class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-green-50 active:bg-green-100 transition">
+            <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
+              <iconify-icon icon="ri:wechat-fill" class="text-white text-xl"></iconify-icon>
+            </div>
+            <span class="text-[10px] text-gray-500">微信</span>
+          </button>
+          <button @click="copyShareLink()" class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-green-50 active:bg-green-100 transition">
+            <div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
+              <iconify-icon icon="ri:wechat-2-fill" class="text-white text-xl"></iconify-icon>
+            </div>
+            <span class="text-[10px] text-gray-500">朋友圈</span>
+          </button>
+          <button @click="copyShareLink()" class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-blue-50 active:bg-blue-100 transition">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+              <iconify-icon icon="ri:qq-fill" class="text-white text-xl"></iconify-icon>
+            </div>
+            <span class="text-[10px] text-gray-500">QQ</span>
+          </button>
+          <button @click="copyShareLink()" class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-gray-50 active:bg-gray-100 transition">
+            <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+              <iconify-icon icon="lucide:link" class="text-white text-lg"></iconify-icon>
+            </div>
+            <span class="text-[10px] text-gray-500">复制</span>
+          </button>
+        </div>
+
+        <!-- 分享文案 -->
+        <div class="bg-gray-50 rounded-xl p-3 mb-4 text-left">
+          <p class="text-[10px] text-gray-400 mb-1">推荐分享文案（长按可复制）：</p>
+          <p class="text-xs text-gray-600 select-all leading-relaxed" id="shareText">
+            📚 2026北京中考数学押题来了！覆盖16区一模/二模/真题/汇编，每天打卡冲刺满分！👉 点击链接开始刷题
+          </p>
+        </div>
+
+        <button @click="showShareModal = false" class="w-full py-2.5 bg-gray-100 text-gray-500 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
+          取消
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 昵称设置弹窗 (访客) ===== -->
+  <template x-if="showNicknameModal">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" @click.self="showNicknameModal = false">
+      <div class="bg-white rounded-2xl p-6 max-w-sm w-full fade-in">
+        <h2 class="text-lg font-bold text-gray-900 mb-2">设置昵称</h2>
+        <p class="text-sm text-gray-500 mb-4">设置昵称后可以出现在打卡排行榜上</p>
+        <input type="text" x-model="nicknameInput" placeholder="输入你的昵称"
+          class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary-400 mb-4">
+        <button @click="saveNickname()"
+          class="w-full py-2.5 bg-primary-600 text-white rounded-xl text-sm font-medium hover:bg-primary-700 transition">
+          确定
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 支付成功弹窗 ===== -->
+  <template x-if="showPaySuccess">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" @click.self="showPaySuccess = false">
+      <div class="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center fade-in">
+        <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <iconify-icon icon="lucide:check-circle" class="text-green-500 text-3xl"></iconify-icon>
+        </div>
+        <h2 class="text-xl font-bold text-gray-900 mb-2">支付成功!</h2>
+        <p class="text-sm text-gray-500 mb-6">已成功开通 <span class="text-primary-600 font-medium" x-text="selectedPlanObj()?.name"></span>，现在可以畅享全部试卷</p>
+        <button @click="showPaySuccess = false; page = 'papers'" class="w-full py-2.5 bg-primary-600 text-white rounded-xl text-sm font-medium hover:bg-primary-700 transition">
+          开始刷题
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 下载成功提示 ===== -->
+  <template x-if="showDownloadToast">
+    <div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-xl text-sm flex items-center gap-2 fade-in">
+      <iconify-icon icon="lucide:check-circle" class="text-green-400"></iconify-icon>
+      试卷已加入下载列表
+    </div>
+  </template>
+
+  <!-- ===== 移动端底部悬浮栏 ===== -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 glass border-t border-gray-200/60 sm:hidden"
+    x-show="page === 'home' || page === 'papers' || page === 'checkin'"
+    style="padding-bottom: env(safe-area-inset-bottom, 0px)">
+    <div class="flex items-center justify-around py-2">
+      <button @click="goHome()" class="flex flex-col items-center gap-0.5 px-3 py-1"
+        :class="page === 'home' ? 'text-primary-600' : 'text-gray-400'">
+        <iconify-icon icon="lucide:home" class="text-lg"></iconify-icon>
+        <span class="text-[10px]">首页</span>
+      </button>
+      <button @click="page = 'papers'" class="flex flex-col items-center gap-0.5 px-3 py-1"
+        :class="page === 'papers' ? 'text-primary-600' : 'text-gray-400'">
+        <iconify-icon icon="lucide:files" class="text-lg"></iconify-icon>
+        <span class="text-[10px]">试卷</span>
+      </button>
+      <button @click="page = 'checkin'" class="relative flex flex-col items-center gap-0.5 px-3 py-1"
+        :class="page === 'checkin' ? 'text-primary-600' : 'text-gray-400'">
+        <div class="absolute -top-4 w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg shadow-primary-200">
+          <iconify-icon icon="lucide:calendar-check" class="text-white text-xl"></iconify-icon>
+        </div>
+        <span class="text-[10px] mt-7">打卡</span>
+      </button>
+      <button @click="page = 'pricing'" class="flex flex-col items-center gap-0.5 px-3 py-1"
+        :class="page === 'pricing' ? 'text-primary-600' : 'text-gray-400'">
+        <iconify-icon icon="lucide:crown" class="text-lg"></iconify-icon>
+        <span class="text-[10px]">会员</span>
+      </button>
+      <button @click="handleShare()" class="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-400">
+        <iconify-icon icon="lucide:share-2" class="text-lg"></iconify-icon>
+        <span class="text-[10px]">分享</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== 首次访问欢迎弹窗 ===== -->
+  <template x-if="showWelcome">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden fade-in">
+        <div class="bg-gradient-to-br from-primary-500 to-accent-600 p-6 text-center text-white">
+          <div class="text-4xl mb-2">📐</div>
+          <h2 class="text-xl font-bold mb-1">欢迎来到中考数学押题</h2>
+          <p class="text-sm text-primary-100">2026 北京中考冲刺必备</p>
+        </div>
+        <div class="p-5">
+          <div class="space-y-3 mb-5">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="lucide:files" class="text-blue-500"></iconify-icon>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-gray-800">1200+ 精选试卷</div>
+                <div class="text-xs text-gray-400">覆盖北京16区全部题型</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="lucide:calendar-check" class="text-green-500"></iconify-icon>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-gray-800">每日打卡</div>
+                <div class="text-xs text-gray-400">坚持打卡，养成刷题好习惯</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-gold-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon="lucide:crown" class="text-gold-500"></iconify-icon>
+              </div>
+              <div>
+                <div class="text-sm font-medium text-gray-800">会员专享</div>
+                <div class="text-xs text-gray-400">解锁全部试卷及详细解析</div>
+              </div>
+            </div>
+          </div>
+          <input type="text" x-model="nicknameInput" placeholder="输入你的昵称（选填）"
+            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary-400 mb-3">
+          <button @click="welcomeStart()"
+            class="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-primary-200 transition active:scale-95">
+            开始使用
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===== 打卡成功动画 ===== -->
+  <div x-show="showCheckinSuccess" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 pointer-events-none">
+    <div class="bg-white rounded-2xl p-8 text-center shadow-2xl fade-in">
+      <div class="text-5xl mb-3">🎉</div>
+      <h2 class="text-xl font-bold text-gray-900 mb-1">打卡成功!</h2>
+      <p class="text-sm text-gray-500">已连续打卡 <span class="text-primary-600 font-bold" x-text="streak"></span> 天</p>
+    </div>
+  </div>
+
+  <script>
+    /* ===== 安全存储层：Moxt API 优先，浏览器 localStorage 降级 ===== */
+    const DB_PREFIX = 'zkmath_';
+    const safeLS = {
+      async getItem(key) {
+        try { const api = window.moxt; if (api && api.localStorage) return await api.localStorage.getItem(key); } catch (e) { console.warn('[Storage] Moxt 读取失败，降级:', e.message); }
+        try { return localStorage.getItem(DB_PREFIX + key); } catch { return null; }
+      },
+      async setItem(key, val) {
+        try { const api = window.moxt; if (api && api.localStorage) await api.localStorage.setItem(key, val); } catch (e) { console.warn('[Storage] Moxt 写入失败，降级:', e.message); }
+        try { localStorage.setItem(DB_PREFIX + key, val); } catch {}
+      }
+    };
+    const safeCol = {
+      wrap(col) {
+        if (!col) return null;
+        const safe = (method) => async (...args) => { try { return await col[method](...args); } catch(e) { console.warn(`[Col] ${method} 失败:`, e.message); return method === 'find' ? [] : null; } };
+        return { find: safe('find'), findOne: safe('findOne'), insertOne: safe('insertOne'), updateOne: safe('updateOne'), replaceOne: safe('replaceOne') };
+      }
+    };
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('app', () => ({
+        page: 'home',
+        isGuest: true,
+        isWechat: false,
+        userName: '',
+        displayName: '',
+        userPlan: 'free',
+        selectedDistrict: '全部',
+        selectedCategory: '全部',
+        selectedYear: '全部',
+        currentPaper: null,
+        selectedPlan: 'quarter',
+        selectedPayment: 'wechat',
+        paying: false,
+        showPaySuccess: false,
+        showDownloadToast: false,
+        showShareModal: false,
+        showNicknameModal: false,
+        showCheckinSuccess: false,
+        showWelcome: false,
+        nicknameInput: '',
+        copied: false,
+
+        // 打卡相关
+        streak: 0,
+        maxStreak: 0,
+        totalCheckins: 0,
+        todayChecked: false,
+        checkinDates: [],
+        calendarMonth: new Date().getMonth(),
+        calendarYear: new Date().getFullYear(),
+
+        // 数据
+        stats: [
+          { value: '1200+', label: '精选试卷' },
+          { value: '16区', label: '全面覆盖' },
+          { value: '95%', label: '押题命中率' },
+          { value: '50万+', label: '学生使用' },
+        ],
+        hotDistricts: ['海淀区', '西城区', '东城区', '朝阳区', '丰台区', '通州区', '大兴区', '昌平区'],
+        allDistricts: [
+          '海淀区', '西城区', '东城区', '朝阳区', '丰台区', '石景山区',
+          '通州区', '大兴区', '顺义区', '昌平区', '房山区', '门头沟区',
+          '平谷区', '怀柔区', '密云区', '延庆区'
+        ],
+        categories: ['全部', '一模', '二模', '真题', '汇编', '押题'],
+        years: ['全部', '2026', '2025', '2024', '2023'],
+        papers: [],
+        plans: [
+          {
+            id: 'month', name: '月卡', desc: '短期冲刺', price: 29, originalPrice: 49, period: '/月',
+            popular: false,
+            features: ['全部区域试卷', '一模/二模/真题', '无限下载', '答案解析']
+          },
+          {
+            id: 'quarter', name: '季卡', desc: '高效备考', price: 68, originalPrice: 147, period: '/3个月',
+            popular: true,
+            features: ['全部区域试卷', '一模/二模/真题/汇编', '无限下载', '答案解析', '押题专栏', '名师视频讲解']
+          },
+          {
+            id: 'year', name: '年卡', desc: '全程无忧', price: 128, originalPrice: 588, period: '/年',
+            popular: false,
+            features: ['全部区域试卷', '全部题型', '无限下载', '答案解析', '押题专栏', '名师视频讲解', '1对1答疑', '提前获取新题']
+          }
+        ],
+        paymentMethods: [
+          { id: 'wechat', name: '微信支付', icon: 'ri:wechat-pay-fill', color: 'text-green-500' },
+          { id: 'alipay', name: '支付宝', icon: 'ri:alipay-fill', color: 'text-blue-500' },
+          { id: 'card', name: '银行卡', icon: 'lucide:credit-card', color: 'text-gray-600' },
+        ],
+        comparisonRows: [
+          { label: '免费试卷', values: ['5套/月', '无限', '无限', '无限'] },
+          { label: '会员试卷', values: [false, true, true, true] },
+          { label: '答案解析', values: ['部分', true, true, true] },
+          { label: '押题专栏', values: [false, false, true, true] },
+          { label: '视频讲解', values: [false, false, true, true] },
+          { label: '1对1答疑', values: [false, false, false, true] },
+          { label: '新题提前获取', values: [false, false, false, true] },
+        ],
+        leaderboard: [],
+
+        get displayInitial() {
+          return (this.displayName || '同').charAt(0);
+        },
+
+        get todayStr() {
+          const d = new Date();
+          return d.getFullYear() + '年' + (d.getMonth()+1) + '月' + d.getDate() + '日 ' + ['日','一','二','三','四','五','六'][d.getDay()] + '曜日';
+        },
+
+        get shareUrl() {
+          return window.location.href;
+        },
+
+        get calendarTitle() {
+          return this.calendarYear + '年' + (this.calendarMonth + 1) + '月';
+        },
+
+        get weekDays() {
+          const today = new Date();
+          const dayOfWeek = today.getDay() || 7;
+          const result = [];
+          const labels = ['周一','周二','周三','周四','周五','周六','周日'];
+          for (let i = 1; i <= 7; i++) {
+            const d = new Date(today);
+            d.setDate(today.getDate() - dayOfWeek + i);
+            const dateStr = this.dateKey(d);
+            result.push({
+              label: labels[i-1],
+              date: d.getDate(),
+              isToday: this.dateKey(today) === dateStr,
+              checked: this.checkinDates.includes(dateStr)
+            });
+          }
+          return result;
+        },
+
+        get calendarDays() {
+          const firstDay = new Date(this.calendarYear, this.calendarMonth, 1);
+          let startDow = firstDay.getDay() || 7; // 周一=1
+          const daysInMonth = new Date(this.calendarYear, this.calendarMonth + 1, 0).getDate();
+          const today = new Date();
+          const todayKey = this.dateKey(today);
+          const cells = [];
+          for (let i = 1; i < startDow; i++) {
+            cells.push({ key: 'e' + i, day: null, checked: false, isToday: false });
+          }
+          for (let d = 1; d <= daysInMonth; d++) {
+            const dt = new Date(this.calendarYear, this.calendarMonth, d);
+            const dk = this.dateKey(dt);
+            cells.push({
+              key: dk,
+              day: d,
+              checked: this.checkinDates.includes(dk),
+              isToday: dk === todayKey
+            });
+          }
+          return cells;
+        },
+
+        get featuredPapers() {
+          return [...this.papers].sort((a, b) => b.downloads - a.downloads).slice(0, 6);
+        },
+
+        get filteredPapers() {
+          return this.papers.filter(p => {
+            if (this.selectedDistrict !== '全部' && p.district !== this.selectedDistrict) return false;
+            if (this.selectedCategory !== '全部' && p.category !== this.selectedCategory) return false;
+            if (this.selectedYear !== '全部' && p.year !== parseInt(this.selectedYear)) return false;
+            return true;
+          }).sort((a, b) => b.downloads - a.downloads);
+        },
+
+        async init() {
+          this.isWechat = /micromessenger/i.test(navigator.userAgent.toLowerCase());
+
+          try {
+            const api = window.moxt;
+            const user = api && api.currentMember;
+            if (user && user.email) {
+              this.isGuest = false;
+              this.userName = user.displayName || user.email.split('@')[0];
+              this.displayName = this.userName;
+            } else {
+              this.isGuest = true; this.userName = '同学'; this.displayName = '同学';
+            }
+            this.collection = safeCol.wrap(api && api.collection('papers'));
+            this.userCol = safeCol.wrap(api && api.collection('user_state'));
+            this.checkinCol = safeCol.wrap(api && api.collection('checkins'));
+            this.leaderCol = safeCol.wrap(api && api.collection('leaderboard'));
+          } catch (e) {
+            console.warn('[Init] Moxt API 不可用，使用离线模式:', e.message);
+            this.isGuest = true; this.userName = '同学'; this.displayName = '同学';
+            this.collection = null; this.userCol = null; this.checkinCol = null; this.leaderCol = null;
+          }
+
+          const savedName = await safeLS.getItem('guest_nickname');
+          if (savedName) { this.displayName = savedName; this.userName = savedName; }
+          const savedPlan = await safeLS.getItem('user_plan');
+          if (savedPlan) this.userPlan = savedPlan;
+
+          const visited = await safeLS.getItem('has_visited');
+          if (!visited && this.isGuest) this.showWelcome = true;
+
+          await this.loadUserState();
+          await this.loadCheckinData();
+          await this.loadPapers();
+          await this.loadLeaderboard();
+        },
+
+        async welcomeStart() {
+          await safeLS.setItem('has_visited', 'true');
+          const name = this.nicknameInput.trim();
+          if (name) {
+            this.displayName = name;
+            this.userName = name;
+            await safeLS.setItem('guest_nickname', name);
+          }
+          this.showWelcome = false;
+        },
+
+        async loadUserState() {
+          if (this.isGuest || !this.userCol) return;
+          const state = await this.userCol.findOne({ key: 'plan' });
+          if (state) this.userPlan = state.plan || 'free';
+        },
+
+        async loadCheckinData() {
+          const dates = await safeLS.getItem('checkin_dates');
+          if (dates) { try { this.checkinDates = JSON.parse(dates); } catch { this.checkinDates = []; } }
+          this.todayChecked = this.checkinDates.includes(this.dateKey(new Date()));
+          this.totalCheckins = this.checkinDates.length;
+          this.calcStreak();
+          if (!this.isGuest && this.checkinCol) {
+            const records = await this.checkinCol.find({ user: this.userName }, { sort: { date: -1 } });
+            if (records && records.length > 0) {
+              const dbDates = records.map(r => r.date);
+              const merged = [...new Set([...this.checkinDates, ...dbDates])].sort();
+              this.checkinDates = merged;
+              await safeLS.setItem('checkin_dates', JSON.stringify(merged));
+              this.todayChecked = this.checkinDates.includes(this.dateKey(new Date()));
+              this.totalCheckins = this.checkinDates.length;
+              this.calcStreak();
+            }
+          }
+        },
+
+        calcStreak() {
+          const sorted = [...this.checkinDates].sort().reverse();
+          if (sorted.length === 0) { this.streak = 0; this.maxStreak = 0; return; }
+          const today = this.dateKey(new Date());
+          const yesterday = this.dateKey(new Date(Date.now() - 86400000));
+          let streak = 0;
+          // 从今天或昨天开始往前数
+          let checkDate = sorted.includes(today) ? new Date() : (sorted.includes(yesterday) ? new Date(Date.now() - 86400000) : null);
+          if (checkDate) {
+            while (this.checkinDates.includes(this.dateKey(checkDate))) {
+              streak++;
+              checkDate = new Date(checkDate.getTime() - 86400000);
+            }
+          }
+          this.streak = streak;
+          // 计算最长连续
+          let maxS = 0, curS = 0;
+          const allSorted = [...this.checkinDates].sort();
+          for (let i = 0; i < allSorted.length; i++) {
+            if (i === 0) { curS = 1; }
+            else {
+              const prev = new Date(allSorted[i-1] + 'T00:00:00');
+              const curr = new Date(allSorted[i] + 'T00:00:00');
+              const diff = (curr - prev) / 86400000;
+              curS = diff === 1 ? curS + 1 : 1;
+            }
+            maxS = Math.max(maxS, curS);
+          }
+          this.maxStreak = maxS;
+        },
+
+        async doCheckin() {
+          const today = this.dateKey(new Date());
+          if (this.checkinDates.includes(today)) return;
+          this.checkinDates.push(today);
+          this.todayChecked = true;
+          this.totalCheckins++;
+          this.calcStreak();
+          await safeLS.setItem('checkin_dates', JSON.stringify(this.checkinDates));
+          if (this.checkinCol) await this.checkinCol.insertOne({ user: this.displayName, date: today });
+          await this.updateLeaderboard();
+          this.showCheckinSuccess = true;
+          setTimeout(() => { this.showCheckinSuccess = false; }, 2000);
+        },
+
+        async updateLeaderboard() {
+          if (!this.leaderCol) { this._updateLocalLB(); return; }
+          const name = this.displayName;
+          const existing = await this.leaderCol.findOne({ name });
+          if (existing) {
+            await this.leaderCol.updateOne({ name }, { $set: { streak: this.streak, total: this.totalCheckins } });
+          } else {
+            await this.leaderCol.insertOne({ name, streak: this.streak, total: this.totalCheckins, isMe: true });
+          }
+          await this.loadLeaderboard();
+        },
+
+        _updateLocalLB() {
+          let lb; try { lb = JSON.parse(localStorage.getItem(DB_PREFIX + 'lb')) || []; } catch { lb = []; }
+          const idx = lb.findIndex(e => e.name === this.displayName);
+          if (idx >= 0) { lb[idx].streak = this.streak; lb[idx].total = this.totalCheckins; }
+          else { lb.push({ name: this.displayName, streak: this.streak, total: this.totalCheckins, isMe: true }); }
+          try { localStorage.setItem(DB_PREFIX + 'lb', JSON.stringify(lb)); } catch {}
+          this._fillLB(lb);
+        },
+
+        _fillLB(entries) {
+          const samples = [
+            { name: '小明同学', streak: 28, total: 45 }, { name: '数学达人', streak: 21, total: 38 },
+            { name: '中考加油', streak: 15, total: 32 }, { name: '学霸小王', streak: 12, total: 25 },
+            { name: '冲刺满分', streak: 8, total: 18 },
+          ];
+          for (const s of samples) { if (!entries.find(e => e.name === s.name)) entries.push({ ...s, isMe: false }); }
+          entries.sort((a, b) => b.streak - a.streak);
+          this.leaderboard = entries.slice(0, 10).map(e => ({ ...e, isMe: e.name === this.displayName }));
+        },
+
+        async loadLeaderboard() {
+          if (!this.leaderCol) {
+            let lb; try { lb = JSON.parse(localStorage.getItem(DB_PREFIX + 'lb')) || []; } catch { lb = []; }
+            this._fillLB(lb); return;
+          }
+          let entries = await this.leaderCol.find({}, { sort: { streak: -1 }, limit: 10 });
+          if (!entries || entries.length === 0) {
+            let lb; try { lb = JSON.parse(localStorage.getItem(DB_PREFIX + 'lb')) || []; } catch { lb = []; }
+            this._fillLB(lb); return;
+          }
+          if (entries.length < 5) {
+            const samples = [
+              { name: '小明同学', streak: 28, total: 45 }, { name: '数学达人', streak: 21, total: 38 },
+              { name: '中考加油', streak: 15, total: 32 }, { name: '学霸小王', streak: 12, total: 25 },
+              { name: '冲刺满分', streak: 8, total: 18 },
+            ];
+            for (const s of samples) {
+              if (!entries.find(e => e.name === s.name)) await this.leaderCol.insertOne({ ...s, isMe: false });
+            }
+            entries = await this.leaderCol.find({}, { sort: { streak: -1 }, limit: 10 }) || [];
+          }
+          this.leaderboard = entries.map(e => ({ ...e, isMe: e.name === this.displayName }));
+        },
+
+        async loadPapers() {
+          let papers = this.collection ? await this.collection.find() : [];
+          if (!papers || papers.length === 0) {
+            try { const c = localStorage.getItem(DB_PREFIX + 'papers'); if (c) papers = JSON.parse(c); } catch {}
+          }
+          if (!papers || papers.length === 0) {
+            papers = this.seedPapersLocal();
+            try { localStorage.setItem(DB_PREFIX + 'papers', JSON.stringify(papers)); } catch {}
+            if (this.collection) { for (const p of papers) await this.collection.insertOne(p); }
+          }
+          this.papers = papers;
+        },
+
+        seedPapersLocal() {
+          const districts = ['海淀区','西城区','东城区','朝阳区','丰台区','石景山区','通州区','大兴区','顺义区','昌平区','房山区','门头沟区','平谷区','怀柔区','密云区','延庆区'];
+          const cats = ['一模','二模','真题','汇编','押题'];
+          const difficulties = ['基础','中等','较难','压轴'];
+          const topicPool = ['二次函数','几何证明','概率统计','圆','相似三角形','一次函数','方程与不等式','数据分析','旋转与对称','坐标几何','代数综合','实数运算','三角形','四边形','函数图像','统计与概率','动点问题','阅读理解题','新定义题','规律探究'];
+          const yearOptions = [2026, 2025, 2024, 2023];
+          const result = [];
+          let idx = 0;
+          for (const dist of districts.slice(0, 10)) {
+            for (const cat of cats) {
+              for (const year of yearOptions.slice(0, 2)) {
+                idx++;
+                const shuffled = [...topicPool].sort(() => Math.random() - 0.5);
+                result.push({
+                  id: 'p' + idx,
+                  title: `${year}${dist}${cat === '押题' ? '中考押题' : '中考数学' + cat}${cat === '汇编' ? '精选' : '试卷'}`,
+                  district: dist, category: cat, year: year,
+                  questionCount: cat === '汇编' ? 30 + Math.floor(Math.random() * 20) : 20 + Math.floor(Math.random() * 10),
+                  difficulty: difficulties[Math.floor(Math.random() * difficulties.length)],
+                  downloads: 100 + Math.floor(Math.random() * 2000),
+                  free: idx % 5 === 0,
+                  isNew: year === 2026 && Math.random() > 0.5,
+                  topics: shuffled.slice(0, 3 + Math.floor(Math.random() * 4)),
+                  description: `${year}年北京${dist}${cat}数学试卷，涵盖中考核心考点，附详细解析。`
+                });
+              }
+            }
+          }
+          return result;
+        },
+
+        dateKey(d) {
+          return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        },
+
+        prevMonth() {
+          if (this.calendarMonth === 0) { this.calendarMonth = 11; this.calendarYear--; }
+          else { this.calendarMonth--; }
+        },
+        nextMonth() {
+          if (this.calendarMonth === 11) { this.calendarMonth = 0; this.calendarYear++; }
+          else { this.calendarMonth++; }
+        },
+
+        goHome() { this.page = 'home'; },
+        viewPaper(p) { this.currentPaper = p; this.page = 'detail'; },
+
+        async downloadPaper() {
+          this.showDownloadToast = true;
+          setTimeout(() => this.showDownloadToast = false, 2500);
+        },
+
+        planName() {
+          const names = { free: '免费版', month: '月卡会员', quarter: '季卡会员', year: '年卡会员' };
+          return names[this.userPlan] || '免费版';
+        },
+
+        selectedPlanObj() {
+          return this.plans.find(p => p.id === this.selectedPlan);
+        },
+
+        async handlePay() {
+          this.paying = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.userPlan = this.selectedPlan;
+          await safeLS.setItem('user_plan', this.selectedPlan);
+          if (!this.isGuest && this.userCol) {
+            await this.userCol.replaceOne({ key: 'plan' }, { key: 'plan', plan: this.selectedPlan }, { upsert: true });
+          }
+          this.paying = false;
+          this.showPaySuccess = true;
+        },
+
+        handleShare() {
+          // 尝试使用系统分享 API（移动端非微信时可用）
+          if (navigator.share && !this.isWechat) {
+            navigator.share({
+              title: '中考数学押题 · 精准押题 每日打卡',
+              text: '📚 2026北京中考数学押题来了！覆盖16区一模/二模/真题/汇编，每天打卡冲刺满分！',
+              url: this.shareUrl
+            }).catch(() => {});
+          }
+          this.showShareModal = true;
+          this.copied = false;
+        },
+
+        async copyShareLink() {
+          const text = this.shareUrl;
+          try {
+            // 优先使用 Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(text);
+              this.copied = true;
+            } else {
+              throw new Error('fallback');
+            }
+          } catch {
+            // 微信浏览器兼容：textarea + execCommand 降级方案
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            ta.setSelectionRange(0, ta.value.length);
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            this.copied = true;
+          }
+          if (this.copied) {
+            setTimeout(() => this.copied = false, 3000);
+          }
+        },
+
+        async saveNickname() {
+          const name = this.nicknameInput.trim();
+          if (!name) return;
+          this.displayName = name;
+          this.userName = name;
+          await safeLS.setItem('guest_nickname', name);
+          this.showNicknameModal = false;
+        },
+
+        categoryColor(cat) {
+          const map = { '一模':'bg-blue-50 text-blue-600','二模':'bg-purple-50 text-purple-600','真题':'bg-green-50 text-green-600','汇编':'bg-orange-50 text-orange-600','押题':'bg-red-50 text-red-600' };
+          return map[cat] || 'bg-gray-50 text-gray-600';
+        },
+        categoryBg(cat) {
+          const map = { '一模':'bg-blue-50','二模':'bg-purple-50','真题':'bg-green-50','汇编':'bg-orange-50','押题':'bg-red-50' };
+          return map[cat] || 'bg-gray-50';
+        },
+        categoryIcon(cat) {
+          const map = { '一模':'lucide:file-text','二模':'lucide:file-check','真题':'lucide:file-badge','汇编':'lucide:files','押题':'lucide:target' };
+          return map[cat] || 'lucide:file';
+        },
+        categoryIconColor(cat) {
+          const map = { '一模':'text-blue-500','二模':'text-purple-500','真题':'text-green-500','汇编':'text-orange-500','押题':'text-red-500' };
+          return map[cat] || 'text-gray-500';
+        },
+      }));
+    });
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</body>
+</html>
