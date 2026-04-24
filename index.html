@@ -98,9 +98,11 @@
           <iconify-icon icon="lucide:share-2" class="text-base"></iconify-icon>
           <span class="hidden sm:inline">分享</span>
         </button>
-        <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium cursor-pointer"
-          @click="showNicknameModal = !isGuest ? false : true"
-          x-text="displayInitial"></div>
+        <div class="flex items-center gap-1.5 cursor-pointer" @click="isRegistered ? null : (showRegister = true)">
+          <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium"
+            x-text="displayInitial"></div>
+          <span x-show="userProfile && userProfile.grade" class="text-[10px] bg-primary-50 text-primary-600 px-1.5 py-0.5 rounded-full hidden sm:inline" x-text="userProfile?.grade"></span>
+        </div>
       </div>
     </div>
   </nav>
@@ -921,19 +923,87 @@
     </div>
   </template>
 
-  <!-- ===== 支付确认成功弹窗 ===== -->
+  <!-- ===== 支付确认成功弹窗（含完整付款通知）===== -->
   <template x-if="showPaySuccess">
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" @click.self="showPaySuccess = false">
-      <div class="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center fade-in">
-        <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-          <iconify-icon icon="lucide:check-circle" class="text-green-500 text-3xl"></iconify-icon>
+    <div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 px-0 sm:px-4" @click.self="showPaySuccess = false">
+      <div class="bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl max-h-[90vh] overflow-y-auto fade-in" style="padding-bottom: env(safe-area-inset-bottom, 16px)">
+        <!-- 成功标识 -->
+        <div class="bg-gradient-to-br from-green-400 to-green-600 p-6 sm:rounded-t-2xl rounded-t-2xl text-center text-white">
+          <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+            <iconify-icon icon="lucide:check-circle" class="text-white text-4xl"></iconify-icon>
+          </div>
+          <h2 class="text-xl font-bold">支付信息已提交</h2>
+          <p class="text-sm text-green-100 mt-1">我们将在确认收款后为您开通会员</p>
         </div>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">支付信息已提交!</h2>
-        <p class="text-sm text-gray-500 mb-2">您的 <span class="text-primary-600 font-medium" x-text="selectedPlanObj()?.name"></span> 开通申请已记录</p>
-        <p class="text-xs text-gray-400 mb-6">我们将在确认收款后1小时内为您开通会员<br>如有疑问请联系客服微信：<span class="font-mono font-bold" x-text="payConfig.serviceWechat"></span></p>
-        <button @click="showPaySuccess = false; page = 'papers'" class="w-full py-2.5 bg-primary-600 text-white rounded-xl text-sm font-medium hover:bg-primary-700 transition">
-          返回刷题
-        </button>
+
+        <!-- 订单详情卡片 -->
+        <div class="p-5" x-show="lastPaidOrder">
+          <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">付款详情</h3>
+          <div class="bg-gray-50 rounded-xl p-4 space-y-2.5 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">订单编号</span>
+              <span class="font-mono text-gray-700 text-xs" x-text="lastPaidOrder?.orderId"></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">开通套餐</span>
+              <span class="font-medium text-gray-800" x-text="lastPaidOrder?.planName"></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">支付方式</span>
+              <span class="text-gray-700" x-text="lastPaidOrder?.payMethod === 'wechat' ? '微信支付' : lastPaidOrder?.payMethod === 'alipay' ? '支付宝' : '银行卡'"></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">支付金额</span>
+              <span class="font-bold text-red-500 text-base">¥<span x-text="lastPaidOrder?.price"></span></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">提交时间</span>
+              <span class="text-gray-600 text-xs" x-text="lastPaidOrder?.paidAt ? new Date(lastPaidOrder.paidAt).toLocaleString('zh-CN') : ''"></span>
+            </div>
+          </div>
+
+          <!-- 学生信息 -->
+          <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 mt-5">学生信息</h3>
+          <div class="bg-gray-50 rounded-xl p-4 space-y-2.5 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500">姓名</span>
+              <span class="font-medium text-gray-800" x-text="lastPaidOrder?.studentName || displayName"></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">年级</span>
+              <span class="text-gray-700" x-text="lastPaidOrder?.studentGrade || '-'"></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">学校</span>
+              <span class="text-gray-700" x-text="lastPaidOrder?.studentSchool || '-'"></span>
+            </div>
+            <div class="border-t border-gray-200/60"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">联系电话</span>
+              <span class="font-mono text-gray-700" x-text="lastPaidOrder?.studentPhone || '-'"></span>
+            </div>
+          </div>
+
+          <!-- 温馨提示 -->
+          <div class="bg-amber-50 rounded-lg p-3 mt-4 flex items-start gap-2">
+            <iconify-icon icon="lucide:info" class="text-amber-500 text-sm mt-0.5 flex-shrink-0"></iconify-icon>
+            <p class="text-xs text-amber-700">请截图保存此页面作为付款凭证。如有疑问请添加客服微信：<span class="font-mono font-bold" x-text="payConfig.serviceWechat"></span></p>
+          </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="px-5 pb-5 space-y-2">
+          <button @click="showPaySuccess = false; page = 'papers'"
+            class="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-primary-200 transition">
+            开始刷题
+          </button>
+        </div>
       </div>
     </div>
   </template>
@@ -981,50 +1051,89 @@
   </div>
 
   <!-- ===== 首次访问欢迎弹窗 ===== -->
-  <template x-if="showWelcome">
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-      <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden fade-in">
+  <!-- ===== 注册页面 ===== -->
+  <template x-if="showRegister">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 overflow-y-auto py-8">
+      <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden fade-in my-auto">
+        <!-- 头部 -->
         <div class="bg-gradient-to-br from-primary-500 to-accent-600 p-6 text-center text-white">
           <div class="text-4xl mb-2">📐</div>
           <h2 class="text-xl font-bold mb-1">欢迎来到北大熊猫老师中考数学押题</h2>
-          <p class="text-sm text-primary-100">2026 北京中考冲刺必备</p>
+          <p class="text-sm text-primary-100">2026 北京中考冲刺必备 · 请先完成注册</p>
         </div>
+        <!-- 注册表单 -->
         <div class="p-5">
-          <div class="space-y-3 mb-5">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                <iconify-icon icon="lucide:files" class="text-blue-500"></iconify-icon>
-              </div>
-              <div>
-                <div class="text-sm font-medium text-gray-800">1200+ 精选试卷</div>
-                <div class="text-xs text-gray-400">覆盖北京16区全部题型</div>
+          <div class="space-y-4 mb-5">
+            <!-- 姓名 -->
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">
+                <span class="text-red-400">*</span> 学生姓名
+              </label>
+              <input type="text" x-model="regForm.name" placeholder="请输入真实姓名"
+                class="w-full px-4 py-2.5 bg-gray-50 border rounded-xl text-sm focus:outline-none focus:border-primary-400 transition"
+                :class="regErrors.name ? 'border-red-300 bg-red-50' : 'border-gray-200'">
+              <p x-show="regErrors.name" class="text-xs text-red-500 mt-1" x-text="regErrors.name"></p>
+            </div>
+            <!-- 年级 -->
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">
+                <span class="text-red-400">*</span> 年级
+              </label>
+              <div class="grid grid-cols-3 gap-2">
+                <template x-for="g in ['初一','初二','初三']" :key="g">
+                  <button @click="regForm.grade = g"
+                    class="py-2 rounded-xl text-sm font-medium border-2 transition"
+                    :class="regForm.grade === g
+                      ? 'border-primary-500 bg-primary-50 text-primary-700'
+                      : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200'">
+                    <span x-text="g"></span>
+                  </button>
+                </template>
               </div>
             </div>
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                <iconify-icon icon="lucide:calendar-check" class="text-green-500"></iconify-icon>
-              </div>
-              <div>
-                <div class="text-sm font-medium text-gray-800">每日打卡</div>
-                <div class="text-xs text-gray-400">坚持打卡，养成刷题好习惯</div>
-              </div>
+            <!-- 学校 -->
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">
+                <span class="text-red-400">*</span> 所在学校
+              </label>
+              <input type="text" x-model="regForm.school" placeholder="如：北京市海淀区XX中学"
+                class="w-full px-4 py-2.5 bg-gray-50 border rounded-xl text-sm focus:outline-none focus:border-primary-400 transition"
+                :class="regErrors.school ? 'border-red-300 bg-red-50' : 'border-gray-200'">
+              <p x-show="regErrors.school" class="text-xs text-red-500 mt-1" x-text="regErrors.school"></p>
             </div>
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-gold-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                <iconify-icon icon="lucide:crown" class="text-gold-500"></iconify-icon>
-              </div>
-              <div>
-                <div class="text-sm font-medium text-gray-800">会员专享</div>
-                <div class="text-xs text-gray-400">解锁全部试卷及详细解析</div>
-              </div>
+            <!-- 联系方式 -->
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">
+                <span class="text-red-400">*</span> 联系电话（家长手机号）
+              </label>
+              <input type="tel" x-model="regForm.phone" placeholder="请输入手机号码" maxlength="11"
+                class="w-full px-4 py-2.5 bg-gray-50 border rounded-xl text-sm focus:outline-none focus:border-primary-400 transition"
+                :class="regErrors.phone ? 'border-red-300 bg-red-50' : 'border-gray-200'">
+              <p x-show="regErrors.phone" class="text-xs text-red-500 mt-1" x-text="regErrors.phone"></p>
             </div>
           </div>
-          <input type="text" x-model="nicknameInput" placeholder="输入你的昵称（选填）"
-            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary-400 mb-3">
-          <button @click="welcomeStart()"
+          <!-- 亮点提示 -->
+          <div class="flex items-center gap-4 mb-5 px-2">
+            <div class="text-center flex-1">
+              <div class="text-lg font-bold text-primary-600">1200+</div>
+              <div class="text-[10px] text-gray-400">精选试卷</div>
+            </div>
+            <div class="w-px h-8 bg-gray-200"></div>
+            <div class="text-center flex-1">
+              <div class="text-lg font-bold text-primary-600">16区</div>
+              <div class="text-[10px] text-gray-400">全面覆盖</div>
+            </div>
+            <div class="w-px h-8 bg-gray-200"></div>
+            <div class="text-center flex-1">
+              <div class="text-lg font-bold text-primary-600">95%</div>
+              <div class="text-[10px] text-gray-400">押题命中</div>
+            </div>
+          </div>
+          <button @click="submitRegister()"
             class="w-full py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl text-sm font-bold shadow-lg shadow-primary-200 transition active:scale-95">
-            开始使用
+            注册并开始使用
           </button>
+          <p class="text-center text-[10px] text-gray-300 mt-3">注册即代表同意《用户服务协议》和《隐私政策》</p>
         </div>
       </div>
     </div>
@@ -1088,6 +1197,13 @@
         showWelcome: false,
         nicknameInput: '',
         copied: false,
+        // 注册/登录
+        showRegister: false,
+        isRegistered: false,
+        regForm: { name: '', grade: '初三', school: '', phone: '' },
+        regErrors: {},
+        userProfile: null, // { name, grade, school, phone, registeredAt }
+        lastPaidOrder: null, // 最近一次支付完成的订单详情
 
         // 打卡相关
         streak: 0,
@@ -1143,8 +1259,8 @@
             name: '北大熊猫老师',
           },
           alipay: {
-            qrCode: '', // 支付宝收款码图片URL，留空则显示文字引导
-            account: '', // 支付宝账号（可选展示）
+            qrCode: 'https://static.moxtcontent.com/public/resource/ai/gen/6e22c6d6-9027-4089-aa32-e307a614f31f.jpg',
+            account: 'yyy摇一摇(**曜)',
             name: '北大熊猫老师',
           },
           card: {
@@ -1262,13 +1378,28 @@
             this.collection = null; this.userCol = null; this.checkinCol = null; this.leaderCol = null;
           }
 
-          const savedName = await safeLS.getItem('guest_nickname');
-          if (savedName) { this.displayName = savedName; this.userName = savedName; }
+          // 加载用户注册信息
+          const profileStr = await safeLS.getItem('user_profile');
+          if (profileStr) {
+            try {
+              this.userProfile = JSON.parse(profileStr);
+              this.isRegistered = true;
+              this.displayName = this.userProfile.name;
+              this.userName = this.userProfile.name;
+            } catch { this.isRegistered = false; }
+          } else {
+            // 兼容老用户：如果有旧昵称也算已访问但未注册
+            const savedName = await safeLS.getItem('guest_nickname');
+            if (savedName) { this.displayName = savedName; this.userName = savedName; }
+          }
+
           const savedPlan = await safeLS.getItem('user_plan');
           if (savedPlan) this.userPlan = savedPlan;
 
-          const visited = await safeLS.getItem('has_visited');
-          if (!visited && this.isGuest) this.showWelcome = true;
+          // 未注册则显示注册页
+          if (!this.isRegistered) {
+            this.showRegister = true;
+          }
 
           await this.loadUserState();
           await this.loadCheckinData();
@@ -1276,15 +1407,43 @@
           await this.loadLeaderboard();
         },
 
-        async welcomeStart() {
-          await safeLS.setItem('has_visited', 'true');
-          const name = this.nicknameInput.trim();
-          if (name) {
-            this.displayName = name;
-            this.userName = name;
-            await safeLS.setItem('guest_nickname', name);
+        async submitRegister() {
+          // 校验
+          this.regErrors = {};
+          if (!this.regForm.name.trim()) this.regErrors.name = '请输入学生姓名';
+          if (!this.regForm.school.trim()) this.regErrors.school = '请输入所在学校';
+          if (!this.regForm.phone.trim()) {
+            this.regErrors.phone = '请输入联系电话';
+          } else if (!/^1[3-9]\d{9}$/.test(this.regForm.phone.trim())) {
+            this.regErrors.phone = '手机号格式不正确';
           }
-          this.showWelcome = false;
+          if (Object.keys(this.regErrors).length > 0) return;
+
+          // 保存注册信息
+          const profile = {
+            name: this.regForm.name.trim(),
+            grade: this.regForm.grade,
+            school: this.regForm.school.trim(),
+            phone: this.regForm.phone.trim(),
+            registeredAt: new Date().toISOString(),
+          };
+          this.userProfile = profile;
+          this.isRegistered = true;
+          this.displayName = profile.name;
+          this.userName = profile.name;
+
+          await safeLS.setItem('user_profile', JSON.stringify(profile));
+          await safeLS.setItem('guest_nickname', profile.name);
+          await safeLS.setItem('has_visited', 'true');
+
+          // 同步到集合
+          if (!this.isGuest && this.userCol) {
+            try {
+              await this.userCol.replaceOne({ key: 'profile' }, { key: 'profile', ...profile }, { upsert: true });
+            } catch (e) { console.warn('[Reg] 同步失败:', e.message); }
+          }
+
+          this.showRegister = false;
         },
 
         async loadUserState() {
@@ -1748,13 +1907,22 @@
         },
 
         async confirmPaid() {
-          // 用户确认已支付，记录订单并更新状态
+          // 用户确认已支付，记录订单并附带用户信息
+          let completedOrder = null;
           const orderStr = await safeLS.getItem('pending_order');
           if (orderStr) {
             try {
               const order = JSON.parse(orderStr);
               order.status = 'paid_unconfirmed';
               order.paidAt = new Date().toISOString();
+              // 附加用户注册信息
+              if (this.userProfile) {
+                order.studentName = this.userProfile.name;
+                order.studentGrade = this.userProfile.grade;
+                order.studentSchool = this.userProfile.school;
+                order.studentPhone = this.userProfile.phone;
+              }
+              completedOrder = order;
 
               // 保存订单记录到历史
               const historyStr = await safeLS.getItem('order_history') || '[]';
@@ -1781,6 +1949,8 @@
           }
           await safeLS.setItem('pending_order', '');
 
+          // 记录本次完成的订单用于弹窗展示
+          this.lastPaidOrder = completedOrder;
           this.showPayModal = false;
           this.showPaySuccess = true;
         },
