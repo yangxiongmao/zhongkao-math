@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://img.icons8.com/3d-fluency/512/math.png">
   <meta name="description" content="北大熊猫老师2026北京中考数学押题平台，覆盖16区一模、二模、真题、汇编，每日打卡助力冲刺满分">
   <meta name="keywords" content="中考数学,北京中考,押题,一模,二模,真题,数学试卷,打卡">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
   <script>
@@ -1639,17 +1639,29 @@
           this.downloadingPDF = true;
 
           try {
-            // 动态加载 jsPDF（如果 CDN 未加载成功）
+            // 动态加载 jsPDF（多源降级）
             if (!window.jspdf) {
-              await new Promise((resolve, reject) => {
-                const s = document.createElement('script');
-                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js';
-                s.onload = resolve;
-                s.onerror = () => reject(new Error('jsPDF加载失败'));
-                document.head.appendChild(s);
-              });
+              const cdnList = [
+                'https://cdn.bootcdn.net/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',
+                'https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js',
+                'https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js',
+              ];
+              for (const url of cdnList) {
+                if (window.jspdf) break;
+                try {
+                  await new Promise((resolve, reject) => {
+                    const s = document.createElement('script');
+                    s.src = url;
+                    s.onload = resolve;
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                  });
+                  if (window.jspdf) break;
+                } catch { /* 尝试下一个 CDN */ }
+              }
             }
-            if (!window.jspdf) throw new Error('jsPDF未就绪');
+            if (!window.jspdf) throw new Error('jsPDF库加载失败，请检查网络后重试');
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
