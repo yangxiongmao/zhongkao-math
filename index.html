@@ -9,11 +9,12 @@
   <title>北大熊猫老师中考数学押题 · 每日打卡</title>
   <!-- Open Graph / 微信分享预览 -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="北大熊猫老师北大熊猫老师中考数学押题 · 精准押题 每日打卡">
+  <meta property="og:title" content="北大熊猫老师中考数学押题 · 精准押题 每日打卡">
   <meta property="og:description" content="覆盖北京16区，一模/二模/真题/汇编全题型。50万+学生在用，95%押题命中率，助力2026中考冲刺满分！">
   <meta property="og:image" content="https://img.icons8.com/3d-fluency/512/math.png">
   <meta name="description" content="北大熊猫老师2026北京中考数学押题平台，覆盖16区一模、二模、真题、汇编，每日打卡助力冲刺满分">
   <meta name="keywords" content="中考数学,北京中考,押题,一模,二模,真题,数学试卷,打卡">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
   <script>
@@ -1287,6 +1288,210 @@
         viewPaper(p) { this.currentPaper = p; this.page = 'detail'; },
 
         async downloadPaper() {
+          const p = this.currentPaper;
+          if (!p) return;
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+          // 中文字体（使用内置 helvetica + Unicode 转码显示）
+          // jsPDF 不原生支持中文，使用 canvas 渲染中文再嵌入图片
+          const canvas = document.createElement('canvas');
+          const scale = 3;
+          const pw = 210, ph = 297; // A4 mm
+          canvas.width = pw * scale;
+          canvas.height = ph * scale;
+          const ctx = canvas.getContext('2d');
+          ctx.scale(scale, scale);
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, pw, ph);
+
+          // 顶部装饰条
+          const grd = ctx.createLinearGradient(0, 0, pw, 0);
+          grd.addColorStop(0, '#2563eb');
+          grd.addColorStop(1, '#7c3aed');
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, pw, 8);
+
+          // 标题区域
+          ctx.fillStyle = '#1e3a5f';
+          ctx.font = 'bold 18px "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('北大熊猫老师中考数学押题', pw / 2, 25);
+
+          ctx.fillStyle = '#6b7280';
+          ctx.font = '10px "PingFang SC", "Microsoft YaHei", sans-serif';
+          ctx.fillText('精准押题 · 助力2026中考冲刺满分', pw / 2, 35);
+
+          // 分隔线
+          ctx.strokeStyle = '#e5e7eb';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath(); ctx.moveTo(15, 40); ctx.lineTo(pw - 15, 40); ctx.stroke();
+
+          // 试卷信息
+          ctx.textAlign = 'left';
+          ctx.fillStyle = '#111827';
+          ctx.font = 'bold 14px "PingFang SC", "Microsoft YaHei", sans-serif';
+          ctx.fillText(p.title, 15, 52);
+
+          ctx.fillStyle = '#6b7280';
+          ctx.font = '9px "PingFang SC", "Microsoft YaHei", sans-serif';
+          ctx.fillText(`区域：${p.district}    分类：${p.category}    年份：${p.year}年    难度：${p.difficulty}    共 ${p.questionCount} 题`, 15, 62);
+
+          // 知识点标签
+          ctx.fillStyle = '#374151';
+          ctx.font = 'bold 10px "PingFang SC", "Microsoft YaHei", sans-serif';
+          ctx.fillText('覆盖知识点：', 15, 74);
+          ctx.font = '9px "PingFang SC", "Microsoft YaHei", sans-serif';
+          ctx.fillStyle = '#4b5563';
+          const topicStr = p.topics.join('、');
+          ctx.fillText(topicStr, 15, 83);
+
+          // 分隔线
+          ctx.strokeStyle = '#e5e7eb';
+          ctx.beginPath(); ctx.moveTo(15, 90); ctx.lineTo(pw - 15, 90); ctx.stroke();
+
+          // 生成模拟题目
+          const questionTypes = [
+            { type: '选择题', prefix: '（每小题3分，共30分）', count: 10 },
+            { type: '填空题', prefix: '（每小题3分，共15分）', count: 5 },
+            { type: '解答题', prefix: '（共55分）', count: 5 },
+          ];
+
+          const sampleQuestions = {
+            '二次函数': ['已知二次函数 y = ax² + bx + c 的图象经过点 A(1, 2)、B(-1, 4)、C(2, 5)，求该二次函数的解析式。', '抛物线 y = x² - 4x + 3 的顶点坐标为____。', '若二次函数 y = (x-1)² + 2 向左平移3个单位，则所得函数解析式为____。'],
+            '几何证明': ['如图，在△ABC中，D是BC边上一点，E是AC的中点，DE的延长线交BA的延长线于点F。求证：FD = 2DE。', '已知四边形ABCD是平行四边形，E是AB的中点，DE的延长线与BC的延长线交于点F，求证：BF = BC。'],
+            '概率统计': ['一个不透明的袋子中装有3个红球和2个白球，这些球除颜色外其余都相同。随机摸出一个球，求摸到红球的概率。', '掷两枚骰子，求点数之和为7的概率。'],
+            '圆': ['已知⊙O的半径为5，弦AB的长为8，求圆心O到弦AB的距离。', '如图，AB是⊙O的直径，C是⊙O上一点，若∠ABC=30°，求∠AOC的度数。'],
+            '相似三角形': ['在△ABC中，DE∥BC，AD=3，DB=6，AE=4，求EC的长。', '已知△ABC～△DEF，且相似比为2:3，若△ABC的面积为16，求△DEF的面积。'],
+            '方程与不等式': ['解方程：x² - 5x + 6 = 0', '解不等式组：2x + 1 > 3 且 x - 2 ≤ 1'],
+            '一次函数': ['已知直线 y = kx + b 经过点 A(2, 3) 和点 B(-1, -3)，求 k 和 b 的值。', '直线 y = 2x + 1 与 x 轴的交点坐标为____。'],
+            '数据分析': ['某班40名同学的数学成绩统计如下：90-100分有8人，80-89分有15人，70-79分有10人，60-69分有5人，不及格2人。求该班数学成绩的中位数所在区间。'],
+            '旋转与对称': ['将△ABC绕点A顺时针旋转60°得到△ADE，若AB=AC=5，∠BAC=60°，求BD的长。'],
+            '坐标几何': ['在平面直角坐标系中，已知A(1,2)，B(4,6)，求线段AB的中点坐标和长度。'],
+            '动点问题': ['如图，在矩形ABCD中，AB=6，BC=8，点P从A出发沿AB方向以每秒1个单位的速度运动到B，同时点Q从B出发沿BC方向以每秒2个单位的速度运动到C。设运动时间为t秒，求△BPQ面积S与t的函数关系式。'],
+            '函数图像': ['画出函数 y = |x - 1| + 2 的图象，并求其最小值。'],
+            '三角形': ['在△ABC中，∠C=90°，AC=3，BC=4，求AB的长及sinA的值。'],
+            '四边形': ['已知梯形ABCD中，AD∥BC，AD=4，BC=10，高为6，求梯形面积。'],
+            '实数运算': ['计算：√12 - 3√(1/3) + √48', '化简：(√5 + √3)(√5 - √3)'],
+            '统计与概率': ['甲、乙两名同学5次数学测试成绩如下。甲：85,90,88,92,95；乙：90,88,91,89,92。比较谁的成绩更稳定。'],
+            '阅读理解题': ['定义新运算：a⊕b = a² - ab + b，求 3⊕(-2) 的值。'],
+            '新定义题': ['对于实数a，定义符号[a]表示不超过a的最大整数。例如[2.5]=2，[-1.3]=-2。求[3.7]+[-2.1]的值。'],
+            '规律探究': ['观察下列等式：1=1²; 1+3=2²; 1+3+5=3²; 1+3+5+7=4²; ... 猜想第n个等式，并证明你的猜想。'],
+          };
+
+          let y = 98;
+          let qNum = 0;
+          const pageH = ph - 15;
+          const lineH = 5.5;
+
+          const addNewPage = () => {
+            // 底部页码
+            ctx.fillStyle = '#9ca3af';
+            ctx.font = '8px "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('— 北大熊猫老师中考数学押题 —', pw / 2, ph - 8);
+            ctx.textAlign = 'left';
+
+            doc.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, pw, ph);
+            doc.addPage();
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, pw, ph);
+            // 页眉
+            ctx.fillStyle = '#d1d5db';
+            ctx.font = '8px "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText(p.title, pw - 15, 10);
+            ctx.textAlign = 'left';
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.beginPath(); ctx.moveTo(15, 14); ctx.lineTo(pw - 15, 14); ctx.stroke();
+            y = 22;
+          };
+
+          const wrapText = (text, maxW) => {
+            const lines = [];
+            let line = '';
+            for (const ch of text) {
+              const testLine = line + ch;
+              if (ctx.measureText(testLine).width > maxW) {
+                lines.push(line);
+                line = ch;
+              } else {
+                line = testLine;
+              }
+            }
+            if (line) lines.push(line);
+            return lines;
+          };
+
+          // 随机从知识点池取题目
+          const getQuestion = (topic) => {
+            const qs = sampleQuestions[topic] || sampleQuestions['实数运算'];
+            return qs[Math.floor(Math.random() * qs.length)];
+          };
+
+          for (const section of questionTypes) {
+            // 大题标题
+            if (y + 15 > pageH) addNewPage();
+            ctx.fillStyle = '#1e40af';
+            ctx.font = 'bold 11px "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.fillText(`${section.type === '选择题' ? '一' : section.type === '填空题' ? '二' : '三'}、${section.type} ${section.prefix}`, 15, y);
+            y += 8;
+
+            for (let i = 0; i < section.count; i++) {
+              qNum++;
+              const topic = p.topics[i % p.topics.length];
+              const question = getQuestion(topic);
+
+              if (y + 20 > pageH) addNewPage();
+
+              ctx.fillStyle = '#111827';
+              ctx.font = '9.5px "PingFang SC", "Microsoft YaHei", sans-serif';
+              const fullQ = `${qNum}. ${question}`;
+              const lines = wrapText(fullQ, pw - 30);
+              for (const line of lines) {
+                if (y + lineH > pageH) addNewPage();
+                ctx.fillText(line, 15, y);
+                y += lineH;
+              }
+
+              // 选择题加选项
+              if (section.type === '选择题') {
+                const opts = ['A. 见图示', 'B. 见图示', 'C. 见图示', 'D. 见图示'];
+                ctx.fillStyle = '#4b5563';
+                ctx.font = '9px "PingFang SC", "Microsoft YaHei", sans-serif';
+                if (y + lineH > pageH) addNewPage();
+                ctx.fillText(`    ${opts.join('    ')}`, 15, y);
+                y += lineH;
+              }
+
+              // 解答题留空
+              if (section.type === '解答题') {
+                y += 18;
+              }
+
+              y += 3;
+            }
+            y += 4;
+          }
+
+          // 最后一页页码
+          ctx.fillStyle = '#9ca3af';
+          ctx.font = '8px "PingFang SC", "Microsoft YaHei", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('— 北大熊猫老师中考数学押题 —', pw / 2, ph - 8);
+          ctx.textAlign = 'left';
+          doc.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, pw, ph);
+
+          // 删除最后的空白页（如有）
+          if (doc.getNumberOfPages() > 1) {
+            const lastPage = doc.getNumberOfPages();
+            // 保留所有页
+          }
+
+          // 触发下载
+          const fileName = `${p.title}.pdf`;
+          doc.save(fileName);
+
           this.showDownloadToast = true;
           setTimeout(() => this.showDownloadToast = false, 2500);
         },
