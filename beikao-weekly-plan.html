@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北大熊猫老师初三备考计划 · 数学 & 物理</title>
+<style>
+  :root {
+    --math: #1a56db;
+    --math-light: #e8f0fe;
+    --math-mid: #4a7fe5;
+    --phy: #d44f00;
+    --phy-light: #fff0e6;
+    --phy-mid: #e8722a;
+    --green: #0a7c3e;
+    --green-light: #e6f4ea;
+    --red: #c0392b;
+    --red-light: #fdecea;
+    --gray: #5f6368;
+    --gray-light: #f8f9fa;
+    --border: #e4e8f0;
+    --text: #1a1a2e;
+    --text-sub: #555;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: #f0f2f8;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── TOP HEADER ── */
+  .hero {
+    background: linear-gradient(120deg, #0e2a72 0%, #1a56db 55%, #3b7dd8 100%);
+    color: white;
+    padding: 44px 0 36px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 28px; font-weight: 800; letter-spacing: 1px; }
+  .hero p  { font-size: 14px; opacity: 0.85; margin-top: 8px; }
+  .hero-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .hbadge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  /* ── SUBJECT LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    background: white;
+    border-radius: 24px;
+    padding: 8px 20px;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-math { background: var(--math); }
+  .dot-phy  { background: var(--phy);  }
+
+  /* ── PHASE LABEL ── */
+  .phase {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 16px;
+  }
+  .phase-badge {
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: white;
+  }
+  .phase-line { flex: 1; height: 1px; background: var(--border); }
+  .phase-desc { font-size: 12px; color: var(--gray); white-space: nowrap; }
+
+  /* ── WEEK CARD ── */
+  .week-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .week-header {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    background: var(--gray-light);
+    border-bottom: 2px solid var(--border);
+  }
+  .wh-date {
+    padding: 14px 16px;
+    background: var(--math);
+    color: white;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .wh-date .week-num { font-size: 20px; font-weight: 900; line-height: 1; }
+  .wh-date .week-range { font-size: 11px; opacity: 0.85; margin-top: 4px; }
+  .wh-theme {
+    grid-column: 2 / 4;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .wh-theme-text { font-size: 15px; font-weight: 700; color: var(--text); }
+  .focus-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .focus-math { background: var(--math-light); color: var(--math); }
+  .focus-phy  { background: var(--phy-light);  color: var(--phy);  }
+  .focus-both { background: #f0fdf4; color: var(--green); }
+  .focus-exam { background: var(--red-light); color: var(--red); }
+
+  /* ── WEEK BODY ── */
+  .week-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .subject-col {
+    padding: 18px 20px;
+  }
+  .subject-col:first-child {
+    border-right: 1px solid var(--border);
+  }
+  .subject-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid;
+  }
+  .subject-label.math { color: var(--math); border-color: var(--math-light); }
+  .subject-label.phy  { color: var(--phy);  border-color: var(--phy-light);  }
+  .subj-icon {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+    color: white;
+  }
+  .si-math { background: var(--math); }
+  .si-phy  { background: var(--phy);  }
+
+  /* ── TOPIC LIST ── */
+  .topic-list { list-style: none; }
+  .topic-item {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px dashed #eef0f5;
+    font-size: 13px;
+  }
+  .topic-item:last-child { border-bottom: none; }
+  .topic-name { flex: 1; color: var(--text); }
+  .kp-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .kp {
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .kp-core { background: #fdecea; color: var(--red); }
+  .kp-high { background: var(--phy-light); color: var(--phy); }
+  .kp-med  { background: var(--math-light); color: var(--math); }
+  .kp-calc { background: #f0fdf4; color: var(--green); }
+  .kp-prf  { background: #f3e5f5; color: #7b1fa2; }
+  .kp-exp  { background: #fff9e6; color: #b37600; }
+
+  /* ── DAILY GOAL ── */
+  .daily-goal {
+    margin: 0 20px 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-sub);
+    background: var(--gray-light);
+    border-left: 3px solid var(--border);
+  }
+  .daily-goal strong { color: var(--text); }
+
+  /* ── EXAM WEEK ── */
+  .exam-banner {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: white;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .exam-banner .big { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .exam-banner .sub { font-size: 12px; opacity: 0.9; }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .summary-header {
+    background: linear-gradient(90deg, #1a2a5e, #1a56db);
+    color: white;
+    padding: 14px 22px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .summary-body { padding: 0; }
+  table.sum {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.sum th {
+    background: var(--gray-light);
+    padding: 10px 14px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--gray);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid var(--border);
+  }
+  table.sum td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.sum tr:last-child td { border-bottom: none; }
+  table.sum tr:hover td { background: #fafbff; }
+  .wk-num { font-weight: 800; color: var(--math); text-align: center; }
+
+  /* ── TIP BOX ── */
+  .tip-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 8px; }
+  .tip-box {
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+  }
+  .tip-box h4 { font-size: 13px; margin-bottom: 8px; }
+  .tip-box ul { padding-left: 16px; }
+  .tip-box li { margin-bottom: 4px; font-size: 12px; }
+  .tip-blue   { background: var(--math-light); }
+  .tip-blue h4 { color: var(--math); }
+  .tip-orange { background: var(--phy-light);  }
+  .tip-orange h4 { color: var(--phy); }
+  .tip-green  { background: var(--green-light); }
+  .tip-green h4 { color: var(--green); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    color: var(--gray);
+    font-size: 12px;
+    margin-top: 40px;
+    padding: 20px;
+  }
+
+  /* ── FLOATING ACTION BUTTONS ── */
+  .fab-group {
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .fab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 28px;
+    border: none;
+    cursor: pointer;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    transition: transform 0.15s, box-shadow 0.15s;
+    white-space: nowrap;
+  }
+  .fab:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,0.22); }
+  .fab:active { transform: translateY(0); }
+  .fab-download { background: #1a56db; color: white; }
+  .fab-share    { background: white; color: #1a56db; border: 2px solid #1a56db; }
+  .fab-toast {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    background: rgba(10,60,20,0.9);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1000;
+  }
+  .fab-toast.show { opacity: 1; }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    .fab-group, .fab-toast { display: none !important; }
+    body { background: white; font-size: 12px; }
+    .hero { padding: 28px 0 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .hero h1 { font-size: 22px; }
+    .week-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+    .container { padding: 16px 12px; }
+    .phase { margin: 18px 0 10px; }
+    .phase-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .wh-date { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .subject-col { padding: 12px 14px; }
+    .topic-item { padding: 5px 0; }
+    .summary-card { page-break-before: always; }
+    .tip-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .tip-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .footer { margin-top: 20px; }
+  }
+
+  @media(max-width:680px) {
+    .week-header { grid-template-columns: 90px 1fr; }
+    .wh-theme { grid-column: 2 / 3; }
+    .week-body { grid-template-columns: 1fr; }
+    .subject-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    .tip-grid { grid-template-columns: 1fr; }
+    table.sum { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING ACTION BUTTONS -->
+<div class="fab-group">
+  <button class="fab fab-download" onclick="handleDownload()">⬇ 下载 PDF</button>
+  <button class="fab fab-share" onclick="handleShare()">🔗 转发链接</button>
+</div>
+<div class="fab-toast" id="fabToast">链接已复制！</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>北大熊猫老师初三备考计划</h1>
+  <p>数学 · 物理 · 知识点全覆盖 | 一模成绩公布 → 中考前夕</p>
+  <div class="hero-badges">
+    <span class="hbadge">📐 数学 100分</span>
+    <span class="hbadge">⚡ 物理 70分</span>
+    <span class="hbadge">⏱ 共10周</span>
+    <span class="hbadge">2026届北京中考</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><span class="dot dot-math"></span>数学模块</div>
+    <div class="legend-item"><span class="dot dot-phy"></span>物理模块</div>
+    <div class="legend-item">
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;padding:2px 8px;border-radius:6px;font-weight:700;">核心</span> 压轴必攻
+    </div>
+    <div class="legend-item">
+      <span style="font-size:11px;background:var(--phy-light);color:var(--phy);padding:2px 8px;border-radius:6px;font-weight:700;">高频</span> 频繁出现
+    </div>
+    <div class="legend-item">
+      <span style="font-size:11px;background:#f3e5f5;color:#7b1fa2;padding:2px 8px;border-radius:6px;font-weight:700;">证明</span> 书写规范
+    </div>
+    <div class="legend-item">
+      <span style="font-size:11px;background:#fff9e6;color:#b37600;padding:2px 8px;border-radius:6px;font-weight:700;">实验</span> 探究操作
+    </div>
+  </div>
+
+  <!-- ══════════ PHASE 1 ══════════ -->
+  <div class="phase">
+    <div class="phase-badge" style="background:#1a56db;">第一阶段</div>
+    <div class="phase-line"></div>
+    <div class="phase-desc">第1～4周 · 基础夯实 · 逐模块清零漏洞</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <!-- WEEK 1 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#1a56db;">
+        <div class="week-num">W1</div>
+        <div class="week-range">4月14日—20日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">数与式 · 方程 &nbsp;|&nbsp; 运动 · 力的基础</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-math">数：夯基础</span>
+          <span class="focus-tag focus-phy">物：力学入门</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">实数运算（有理数、无理数、绝对值、根式化简）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">整式运算与因式分解（十字相乘、完全平方）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">分式化简与计算（通分、约分、去分母）</div>
+            <div class="kp-tags"><span class="kp kp-med">中频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">一元一次方程 & 二元一次方程组（应用题设元）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">一元二次方程（公式法、因式分解法、判别式Δ）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">不等式与不等式组（解集的数轴表示）</div>
+            <div class="kp-tags"><span class="kp kp-med">中频</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">机械运动（参照物判断、速度 v=s/t、平均速度）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">力的概念（三要素、弹力、摩擦力、重力 G=mg）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">受力分析与力的示意图（规范画法）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">合力与平衡力（二力平衡条件）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">牛顿第一定律 & 惯性（现象解释）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">整理一模错题：分类（概念/计算/方法）</div>
+            <div class="kp-tags"><span class="kp kp-exp">复盘</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>每日参考：</strong>数学 1.5h 专题练习 + 物理 1h 知识梳理 + 30min 一模错题复盘
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#2563eb;">
+        <div class="week-num">W2</div>
+        <div class="week-range">4月21日—27日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">一次函数 · 反比例函数 &nbsp;|&nbsp; 压强 · 浮力</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-math">数：函数基础</span>
+          <span class="focus-tag focus-phy">物：液体静力学</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">一次函数图像与性质（斜率 k 与截距 b 的影响）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">正比例函数（k 正负与象限位置）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">一次函数与方程/不等式联立（交点、解集）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">反比例函数 y=k/x（k 正负、象限、几何意义）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">反比例函数中三角形面积 = ½|k|</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">两函数综合题（交点坐标、图像综合判断）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">固体压强 P=F/S（增大/减小压强的方法）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">液体压强 P=ρgh（与深度、密度关系）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">大气压与托里拆利实验（概念与应用）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">浮力概念与阿基米德原理 F浮=ρ液gV排</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">物体沉浮条件（ρ物与ρ液比较）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">浮力综合计算（含密度、重力联立求解）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>每日参考：</strong>数学 1.5h 函数专题 + 物理 1h 压强浮力计算 + 周末完成1套历年基础题
+    </div>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#4338ca;">
+        <div class="week-num">W3</div>
+        <div class="week-range">4月28日—5月4日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">三角形几何 &nbsp;|&nbsp; 简单机械 · 功和能</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-math">数：几何证明</span>
+          <span class="focus-tag focus-phy">物：机械与功</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">全等三角形判定（SAS/ASA/AAS/SSS/HL）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">等腰三角形性质（等角对等边、顶角平分线三线合一）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">相似三角形判定（AA/SAS/SSS）与对应边比</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">相似比与面积比（面积比=边长比的平方）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">直角三角形：勾股定理及逆定理、特殊角（30°/45°/60°）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">辅助线技巧（中线、高、角平分线延长线）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">杠杆平衡条件 F₁×L₁=F₂×L₂（作力臂图）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">滑轮（定/动/组合）：绳子段数与省力关系</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">功 W=Fs（有用功、额外功、总功的区别）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">功率 P=W/t=Fv（功率的概念与计算）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">机械效率 η=W有用/W总（提高效率的方法）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">动能与势能（影响因素分析）、能量守恒</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>每日参考：</strong>数学 1.5h 几何证明规范训练 + 物理 1h 机械计算专题 + 周末几何综合题2道
+    </div>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#7c3aed;">
+        <div class="week-num">W4</div>
+        <div class="week-range">5月5日—11日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">四边形 · 圆（基础）&nbsp;|&nbsp; 电路基础 · 欧姆定律</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-math">数：圆入门</span>
+          <span class="focus-tag focus-phy">物：电学核心</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">平行四边形、矩形、菱形、正方形（性质与判定）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">梯形（中位线、等腰梯形对角线等长）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">图形变换（旋转、轴对称、平移与坐标系结合）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">圆的基础（弦、弧、圆心角、圆周角定理）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">切线的判定与性质（切线长定理、切线⊥半径）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">弦切角定理（弦切角=所夹弧的圆周角）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">串联/并联电路识别（特征判断、电路图改画）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">串联：电流处处相等，电压分配（分压）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">并联：电压相等，电流分配（分流）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">欧姆定律 I=U/R（三种变形熟练应用）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">动态电路分析（滑动变阻器 → 电压/电流/功率变化）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">电流表/电压表：量程选择、正负接线、读数</div>
+            <div class="kp-tags"><span class="kp kp-exp">实验</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>每日参考：</strong>数学 2h 几何综合+圆的定理 + 物理 1.5h 电路计算专题（动态电路重点练）
+    </div>
+  </div>
+
+  <!-- ══════════ PHASE 2 ══════════ -->
+  <div class="phase">
+    <div class="phase-badge" style="background:#d44f00;">第二阶段</div>
+    <div class="phase-line"></div>
+    <div class="phase-desc">第5～6周 · 核心攻坚 · 压轴题突破 · 二模冲刺</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <!-- WEEK 5 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#d44f00;">
+        <div class="week-num">W5</div>
+        <div class="week-range">5月12日—18日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">二次函数（压轴）&nbsp;|&nbsp; 电功率 · 电热</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-math">数：最重要压轴</span>
+          <span class="focus-tag focus-phy">物：电学进阶</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">二次函数三种形式（一般式/顶点式/交点式）互化</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">顶点坐标、对称轴、开口方向（a/b/c的影响）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">二次函数与x轴交点（Δ=b²-4ac判断根的情况）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">二次函数结合不等式（函数值的范围、最值问题）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">二次函数与几何综合（面积最大值、动点问题）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">专项训练：历年真题第21题（3道完整作答）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">规范</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">电功 W=UIt=Pt（电功与机械功的关系）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">电功率 P=UI=I²R=U²/R（三式选用时机）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">额定功率 vs 实际功率（用电器工作状态分析）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">焦耳定律 Q=I²Rt（电热与电功的区别）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">家庭电路（220V、火零地线、空开/保险丝）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">电功率综合大题（串/并联+欧姆定律联立）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>每日参考：</strong>数学 2h 二次函数专项 + 物理 1.5h 电学综合计算 + 周末各做1套模拟题备战二模
+    </div>
+  </div>
+
+  <!-- WEEK 6 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#b45309;">
+        <div class="week-num">W6</div>
+        <div class="week-range">5月19日—25日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">圆（压轴攻坚）· 统计概率 &nbsp;|&nbsp; 光学 · 热学 · 二模备战</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-math">数：圆是压轴核心</span>
+          <span class="focus-tag focus-exam">⭐ 二模冲刺周</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">圆的切线（切线长定理：PA²=PO²-r²）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">圆周角定理（圆周角=½圆心角，同弧等圆周角）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">弦切角（弦切角=所对弧的圆周角）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">圆中综合证明+计算（历年真题第23题后半）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">证明</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">统计：方差计算、频率分布直方图读图</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">概率：古典概型（树形图/列表法）P=m/n</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">光的反射（反射定律、法线作图规范）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-exp">作图</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">平面镜成像（虚像、等大等距、与镜面对称）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">光的折射（从空气射入介质偏向法线）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-exp">作图</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">凸透镜成像规律（u与f比较→像的类型/应用）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">比热容 Q=cmΔt（水的比热容最大，水的应用）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">物态变化（六种变化吸/放热，熔点/沸点）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>二模备战：</strong>本周末完成1套完整数学模拟（120min限时）+ 1套物理模拟（90min限时），严格模拟考场
+    </div>
+  </div>
+
+  <!-- ══════════ PHASE 3 ══════════ -->
+  <div class="phase">
+    <div class="phase-badge" style="background:#c0392b;">第三阶段</div>
+    <div class="phase-line"></div>
+    <div class="phase-desc">第7～8周 · 二模后精准补漏 · 真题压轴集训</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <!-- WEEK 7 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#c0392b;">
+        <div class="week-num">W7</div>
+        <div class="week-range">5月26日—6月1日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">二模复盘 · 精准补漏 &nbsp;|&nbsp; 实验探究专项</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-exam">二模后48h内完成错题整理</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">二模错题逐题分析（48小时内必完成）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">针对二模丢分最多的2个知识点专项练习</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">坐标系综合（动点、面积最值、参数求解）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">完成2022～2023年北京中考数学真题（含解析对照）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">解答题书写规范再训练（步骤、单位、结论格式）</div>
+            <div class="kp-tags"><span class="kp kp-prf">规范</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">实验探究：控制变量法（设计、步骤、表格填写）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-exp">实验</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">探究欧姆定律（电流与电压/电阻的关系）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-exp">实验</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">探究串并联电路中电流/电压规律</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-exp">实验</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">探究浮力与排开液体重力的关系（阿基米德验证）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-exp">实验</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">探究凸透镜成像规律（光屏移动与像的变化）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-exp">实验</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">完成2022～2023年北京中考物理真题</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>本周重点：</strong>不追新题，只追"会了吗"——二模错题每题说清楚为什么错
+    </div>
+  </div>
+
+  <!-- WEEK 8 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#9b1c1c;">
+        <div class="week-num">W8</div>
+        <div class="week-range">6月2日—8日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">压轴题集训 · 历年真题全真模拟</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-exam">数学第21/23题 · 物理综合大题</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">二次函数压轴（第21题）：3道近年真题完整作答</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">规范</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">圆综合（第23题）：证明+计算分步规范书写</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-prf">规范</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">解析几何综合（交点、坐标、面积联立）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">2024年北京中考真题（全卷限时120分钟）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">选填题快速解题技巧（排除法、特殊值法）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">力学综合大题（浮力+机械效率联立求解）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">电学综合大题（欧姆+功率+动态电路）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span><span class="kp kp-calc">计算</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">图像分析题（I-U图像、s-t图像、v-t图像）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">2024年北京中考物理真题（全卷限时90分钟）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">多选题专项（判断两个正确选项，防失分）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>本周重点：</strong>周末全真模拟（数学＋物理分两天），模拟后当晚完成对答案，次日完成错题分析
+    </div>
+  </div>
+
+  <!-- ══════════ PHASE 4 ══════════ -->
+  <div class="phase">
+    <div class="phase-badge" style="background:#0a7c3e;">第四阶段</div>
+    <div class="phase-line"></div>
+    <div class="phase-desc">第9～10周 · 回炉巩固 · 稳心态 · 轻松冲刺</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <!-- WEEK 9 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#0a7c3e;">
+        <div class="week-num">W9</div>
+        <div class="week-range">6月9日—15日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">全科回炉 · 公式总结 · 必拿分题库</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-both">保稳必得分，攻可拿分</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">手写整理数学全部公式/定理（一次通读）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">建立"必拿分"题库（选填前15题 → 目标满分）</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">针对性练习：个人错误率最高的3类知识点</div>
+            <div class="kp-tags"><span class="kp kp-core">核心</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">完成近5年真题第1～15题（限时45分钟/套）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">本周后半段：停止做新题，只做错题和基础题</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">手写物理全部公式（一张A4汇总，贴桌前）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">各模块快速回顾（每天1模块：力/电/光/热）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">实验探究答题模板：现象+结论+规范表达</div>
+            <div class="kp-tags"><span class="kp kp-exp">实验</span><span class="kp kp-prf">规范</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">完成近5年物理真题选择+填空（限时40分钟/套）</div>
+            <div class="kp-tags"><span class="kp kp-high">高频</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">本周后半段：停止做新题，只过错题本</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal">
+      ⏱ <strong>本周策略：</strong>量减质升，每题必搞懂 — 做1道懂1道，不追题量
+    </div>
+  </div>
+
+  <!-- WEEK 10 -->
+  <div class="week-card">
+    <div class="week-header">
+      <div class="wh-date" style="background:#166534;">
+        <div class="week-num">W10</div>
+        <div class="week-range">6月16日—22日</div>
+      </div>
+      <div class="wh-theme">
+        <div class="wh-theme-text">最后冲刺 · 调整状态 · 信心满格</div>
+        <div style="display:flex;gap:6px;">
+          <span class="focus-tag focus-exam">⭐ 中考周（6月23/24日）</span>
+        </div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="subject-col">
+        <div class="subject-label math"><span class="subj-icon si-math">数</span>数学</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">6/16-17：只看错题本，不做任何新题</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/18-19：公式默写 + 基础选填题（半张卷量）</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/20：回顾历年真题解题思路（不做，只看过程）</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/21：休息，只做5道最拿手的基础题找信心</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/22：调整作息，准备文具，早睡（10点前）</div>
+            <div class="kp-tags"><span class="kp kp-med">准备</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="subject-col">
+        <div class="subject-label phy"><span class="subj-icon si-phy">物</span>物理</div>
+        <ul class="topic-list">
+          <li class="topic-item">
+            <div class="topic-name">6/16-17：物理公式汇总表过一遍，过错题</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/18-19：物理选择+填空专项（近年真题前半）</div>
+            <div class="kp-tags"><span class="kp kp-med">策略</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/20：整理实验探究关键词（现象→结论→规律）</div>
+            <div class="kp-tags"><span class="kp kp-exp">实验</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/21：作图题练习（光路图/受力图/电路图）规范</div>
+            <div class="kp-tags"><span class="kp kp-exp">作图</span></div>
+          </li>
+          <li class="topic-item">
+            <div class="topic-name">6/22：轻松复习，保证8h睡眠，明天全力出发</div>
+            <div class="kp-tags"><span class="kp kp-med">准备</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="daily-goal" style="background:#dcfce7;border-left-color:#0a7c3e;color:#14532d;">
+      🎯 <strong>目标：</strong>数学保住基础分45分（选填）+ 努力拿下解答题前4道 = 稳过100分 ｜ 物理保住前20题 = 稳过70分
+    </div>
+  </div>
+
+  <!-- ══════════ SUMMARY TABLE ══════════ -->
+  <div class="summary-card">
+    <div class="summary-header">10周知识点覆盖总览</div>
+    <div class="summary-body">
+      <table class="sum">
+        <tr>
+          <th>周次</th>
+          <th>时间</th>
+          <th>数学核心知识点</th>
+          <th>物理核心知识点</th>
+          <th>阶段重心</th>
+        </tr>
+        <tr>
+          <td class="wk-num">W1</td>
+          <td>4/14-20</td>
+          <td>实数运算、方程组、一元二次方程、不等式</td>
+          <td>机械运动、力的分析、牛顿第一定律</td>
+          <td>错题复盘·基础清零</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W2</td>
+          <td>4/21-27</td>
+          <td>一次函数、反比例函数、两函数综合</td>
+          <td>压强（固体/液体）、浮力与阿基米德原理</td>
+          <td>基础夯实</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W3</td>
+          <td>4/28-5/4</td>
+          <td>全等/相似三角形、勾股定理、辅助线</td>
+          <td>杠杆滑轮、功率、机械效率、动能势能</td>
+          <td>几何+力学</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W4</td>
+          <td>5/5-11</td>
+          <td>四边形、图形变换、圆的基础（切线/弦切角）</td>
+          <td>串并联电路、欧姆定律、动态电路</td>
+          <td>几何进阶+电学入门</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W5</td>
+          <td>5/12-18</td>
+          <td><strong>二次函数（压轴核心）</strong>：三形式/图像/综合</td>
+          <td>电功率、电热、焦耳定律、家庭电路</td>
+          <td>核心攻坚</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W6</td>
+          <td>5/19-25</td>
+          <td><strong>圆（压轴核心）</strong>：切线/圆周角/弦切角，统计概率</td>
+          <td>光的反射折射、凸透镜、比热容、物态变化</td>
+          <td>圆+光热·二模备战</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W7</td>
+          <td>5/26-6/1</td>
+          <td>二模错题补漏、坐标系综合、历年真题</td>
+          <td>实验探究专项（控制变量、欧姆/浮力/透镜）</td>
+          <td>精准补漏</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W8</td>
+          <td>6/2-8</td>
+          <td>压轴题集训（第21/23题类）、2024年真题全卷</td>
+          <td>力学/电学综合大题、图像分析、2024年真题</td>
+          <td>真题集训</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W9</td>
+          <td>6/9-15</td>
+          <td>全科回炉、公式总结、必拿分题库建立</td>
+          <td>模块快速回顾、实验规范模板、基础题库</td>
+          <td>回炉巩固</td>
+        </tr>
+        <tr>
+          <td class="wk-num">W10</td>
+          <td>6/16-22</td>
+          <td>轻量复习（只看错题+基础题），6/22调整状态</td>
+          <td>轻量复习（公式+作图规范），6/22保证睡眠</td>
+          <td>⭐ 中考冲刺</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- TIP BOXES -->
+  <div class="tip-grid">
+    <div class="tip-box tip-blue">
+      <h4>📐 数学备考三原则</h4>
+      <ul>
+        <li>二次函数+圆 占约 25～30 分，必须重点攻</li>
+        <li>选填题（45分）是"必保分"，目标 40+</li>
+        <li>证明题规范书写：设→证→结论，缺一不可</li>
+        <li>计算题先写公式，再代入，不跳步</li>
+        <li>每次模拟后必须分析：审题误/计算误/方法误</li>
+      </ul>
+    </div>
+    <div class="tip-box tip-orange">
+      <h4>⚡ 物理备考三原则</h4>
+      <ul>
+        <li>欧姆定律+浮力 是两大必考综合题板块</li>
+        <li>实验探究（约12分）：记"控制变量"关键词</li>
+        <li>作图规范：法线/力线/光线/电路图箭头</li>
+        <li>多选题：不确定宁可少选，错选直接0分</li>
+        <li>公式默写：每天考前手写1遍核心公式表</li>
+      </ul>
+    </div>
+    <div class="tip-box tip-green">
+      <h4>🎯 通用心态与方法</h4>
+      <ul>
+        <li>错题本：分类标注（概念/计算/方法/粗心）</li>
+        <li>模拟考：严格计时，不超时，模拟真实考场</li>
+        <li>第9周起：停刷新题，深吃已有错题</li>
+        <li>考前2天：只做最拿手的基础题，保持信心</li>
+        <li>睡眠≥8h：考前2周尤其重要，不熬夜</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    北大熊猫老师初三备考计划 · 2026年4月 · 北京中考数学物理备考专用<br>
+    建议根据学生一模实际成绩与薄弱模块，对各周重点进行个性化微调
+  </div>
+
+</div>
+<script>
+  function handleDownload() {
+    window.print();
+  }
+
+  function handleShare() {
+    var link = 'https://moxt.ai/w/69n5htoq/de68e366-0ef6-46a9-bc57-e67ff717fe12';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(function() { showToast('链接已复制！'); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = link;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast('链接已复制！'); }
+      catch(e) { showToast('请手动复制链接'); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('fabToast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2200);
+  }
+</script>
+</body>
+</html>
